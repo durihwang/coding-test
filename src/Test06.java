@@ -38,7 +38,7 @@ public class Test06 {
         int zero_cnt = 0;
         ArrayList<Integer> integers = new ArrayList<>();
 
-        // 로또 등수를 hashMap에 담아둔다.
+        // 로또 등수를 HashMap에 담아둔다.
         HashMap<Integer, Integer> result = new HashMap<>();
         result.put(6, 1);
         result.put(5, 2);
