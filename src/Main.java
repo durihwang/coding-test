@@ -1,43 +1,54 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.Scanner;
+import java.util.StringTokenizer;
 
 class Main {
 
-    public int solution(int n, int[] arr, int x) {
+    public int[] solution(int n, int[] arr) {
 
-        int answer = 0;
+        int[] answer = new int[2];
+        int result = Integer.MAX_VALUE;
         int lt = 0, rt = n-1;
 
         Arrays.sort(arr);
 
         while (lt < rt) {
             int i = arr[rt] + arr[lt];
-            if (i == x) {
-                answer++;
-                lt++;
-            } else if (i < x) {
-                lt++;
-            } else if (i > x) {
+
+            if (Math.abs(i) < result) {
+                answer[0] = arr[lt];
+                answer[1] = arr[rt];
+                result = Math.abs(i);
+                if (i == 0) {
+                    break;
+                }
+            }
+
+            if (i > 0) {
                 rt--;
+            } else {
+                lt++;
             }
         }
 
         return answer;
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         Main solution = new Main();
-        Scanner scanner = new Scanner(System.in);
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-        int n = scanner.nextInt();
+        int n = Integer.parseInt(br.readLine());
         int[] arr = new int[n];
-        for (int i = 0; i < n; i++) {
-            arr[i] = scanner.nextInt();
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        for(int i=0; i<n; i++) {
+            arr[i] = Integer.parseInt(st.nextToken());
         }
-        int x = scanner.nextInt();
 
-//        int[] arr = new int[]{5, 12, 7, 10, 9, 1, 2, 3, 11};
-//        int[] arr = new int[]{1, 2, 3, 5, 7, 9, 10, 11, 12};
-        System.out.println(solution.solution(n, arr, x));
+        int[] solution1 = solution.solution(n, arr);
+        System.out.println(solution1[0] + " " + solution1[1]);
     }
 }
