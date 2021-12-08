@@ -1,27 +1,24 @@
+import java.util.Arrays;
 import java.util.Scanner;
 
 class Main {
 
-    public String solution(String new_id) {
+    public int solution(int n, int[] arr, int x) {
 
-        String answer = new_id
-                .toLowerCase()
-                .replaceAll("[^a-z0-9-_.]", "")
-                .replaceAll("[.]{2,}", ".")
-                .replaceAll("^[.]|[.]$", "");
+        int answer = 0;
+        int lt = 0, rt = n-1;
 
-        if (answer.equals("")) {
-            answer += "a";
-        }
+        Arrays.sort(arr);
 
-        if (answer.length() >= 16) {
-            answer = answer.substring(0, 15);
-            answer = answer.replaceAll("[.]$", "");
-        }
-
-        if (answer.length() <= 2) {
-            while (answer.length() < 3) {
-                answer += answer.charAt(answer.length() - 1);
+        while (lt < rt) {
+            int i = arr[rt] + arr[lt];
+            if (i == x) {
+                answer++;
+                lt++;
+            } else if (i < x) {
+                lt++;
+            } else if (i > x) {
+                rt--;
             }
         }
 
@@ -29,13 +26,18 @@ class Main {
     }
 
     public static void main(String[] args) {
-        Test05 solution = new Test05();
+        Main solution = new Main();
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println(solution.solution("z-+.^."));
-        // z-+.^.
-        // =.=
-        // ...!@BaT#*..y.abcdefghijklm
-        // abcdefghijklmn.p
+        int n = scanner.nextInt();
+        int[] arr = new int[n];
+        for (int i = 0; i < n; i++) {
+            arr[i] = scanner.nextInt();
+        }
+        int x = scanner.nextInt();
+
+//        int[] arr = new int[]{5, 12, 7, 10, 9, 1, 2, 3, 11};
+//        int[] arr = new int[]{1, 2, 3, 5, 7, 9, 10, 11, 12};
+        System.out.println(solution.solution(n, arr, x));
     }
 }
