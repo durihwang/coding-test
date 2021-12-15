@@ -1,46 +1,36 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 import java.util.Stack;
 import java.util.StringTokenizer;
 
 class Main {
 
-    public ArrayList<Integer> solution(int n, String[] arr) {
+    public int solution(int n, int[][] pos, int m, int[] moves) {
 
-        ArrayList<Integer> answer = new ArrayList<>();
+        int answer = 0;
         Stack<Integer> stack = new Stack<>();
-        for (int i = 0; i < n; i++) {
 
-            String x = arr[i];
-            String[] s = x.split(" ");
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (pos[j][moves[i] - 1] != 0) {
+                    if (stack.isEmpty()) {
+                        stack.push(pos[j][moves[i] - 1]);
+                    } else {
+                        if (pos[j][moves[i] - 1] == stack.peek()) {
+                            stack.pop();
+                            answer += 2;
+                        } else {
+                            stack.push(pos[j][moves[i] - 1]);
+                        }
+                    }
 
-            if (s[0].equals("push")) {
-                stack.push(Integer.parseInt(s[1]));
-            } else if (s[0].equals("pop")){
-                if (stack.isEmpty()) {
-                    answer.add(-1);
-                } else {
-                    answer.add(stack.pop());
-                }
-            } else if (s[0].equals("size")){
-                answer.add(stack.size());
-            } else if (s[0].equals("empty")){
-                if (stack.isEmpty()) {
-                    answer.add(1);
-                } else {
-                    answer.add(0);
-                }
-            } else {
-                if (stack.isEmpty()) {
-                    answer.add(-1);
-                } else {
-                    int top = stack.peek();
-                    answer.add(top);
+                    pos[j][moves[i] - 1] = 0;
+                    break;
                 }
             }
         }
+
 
         return answer;
     }
@@ -55,15 +45,23 @@ class Main {
         int n = Integer.parseInt(st.nextToken());
         int s = Integer.parseInt(st.nextToken());*/
 
-        String[] arr = new String[n];
-//        StringTokenizer st2 = new StringTokenizer(br.readLine());
+        int[][] arr = new int[n][n];
         for (int i = 0; i < n; i++) {
-            arr[i] = br.readLine();
+            StringTokenizer st2 = new StringTokenizer(br.readLine());
+            for (int j = 0; j < n; j++) {
+                arr[i][j] = Integer.parseInt(st2.nextToken());
+            }
         }
 
-//        System.out.println(solution.solution(n, arr));
-        for (int s : solution.solution(n, arr)) {
-            System.out.println(s);
+        int m = Integer.parseInt(br.readLine());
+        int[] moves = new int[m];
+        StringTokenizer st3 = new StringTokenizer(br.readLine());
+        for (int i = 0; i < m; i++) {
+            moves[i] = Integer.parseInt(st3.nextToken());
         }
+        System.out.println(solution.solution(n, arr, m, moves));
+        /*for (int s : solution.solution(n, arr)) {
+            System.out.println(s);
+        }*/
     }
 }
