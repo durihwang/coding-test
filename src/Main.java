@@ -9,27 +9,6 @@ class Main {
     public int solution(int n, int[][] pos, int m, int[] moves) {
 
         int answer = 0;
-        Stack<Integer> stack = new Stack<>();
-
-        for (int i = 0; i < m; i++) {
-            for (int j = 0; j < n; j++) {
-                if (pos[j][moves[i] - 1] != 0) {
-                    if (stack.isEmpty()) {
-                        stack.push(pos[j][moves[i] - 1]);
-                    } else {
-                        if (pos[j][moves[i] - 1] == stack.peek()) {
-                            stack.pop();
-                            answer += 2;
-                        } else {
-                            stack.push(pos[j][moves[i] - 1]);
-                        }
-                    }
-
-                    pos[j][moves[i] - 1] = 0;
-                    break;
-                }
-            }
-        }
 
 
         return answer;
