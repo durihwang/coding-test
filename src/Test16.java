@@ -4,7 +4,7 @@ import java.io.InputStreamReader;
 import java.util.Stack;
 import java.util.StringTokenizer;
 
-class Main {
+class Test16 {
 
     public int solution(String n) {
 
@@ -29,7 +29,7 @@ class Main {
     }
 
     public static void main(String[] args) throws IOException {
-        Main solution = new Main();
+        Test16 solution = new Test16();
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
 //        int n = Integer.parseInt(br.readLine());
