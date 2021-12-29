@@ -26,7 +26,7 @@ public class Test17 {
     }
 
     public static void main(String[] args) {
-        Main main = new Main();
+        Test17 main = new Test17();
         Scanner scanner = new Scanner(System.in);
 
         String str = scanner.next();
