@@ -7,33 +7,38 @@ import java.util.StringTokenizer;
 
 class Main {
 
-    public int solution(int n, int k) {
+    public String solution(String n, String k) {
 
-        int answer = 0;
-        Queue<Integer> q = new LinkedList<>();
+        String answer = "";
+        Queue<Character> queue = new LinkedList<>();
 
-        for (int i = 0; i < n; i++) {
-            q.offer(i + 1);
+        for (int i = 0; i < n.length(); i++) {
+            queue.add(n.charAt(i));
         }
 
-        while (!q.isEmpty()) {
-            for (int i = 1; i < k; i++) {
-                q.offer(q.poll());
+        for (int i = 0; i < k.length(); i++) {
+            if (queue.contains(k.charAt(i))) {
+                if (queue.peek() == k.charAt(i)) {
+                    queue.poll();
+                } else {
+                    return "NO";
+                }
             }
-
-            answer = q.poll();
         }
 
-        return answer;
+        if (!queue.isEmpty()) {
+            return "NO";
+        }
+
+        return "YES";
     }
 
     public static void main(String[] args) throws IOException {
         Main solution = new Main();
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-        StringTokenizer st = new StringTokenizer(br.readLine());
-        int n = Integer.parseInt(st.nextToken());
-        int k = Integer.parseInt(st.nextToken());
+        String n = br.readLine();
+        String k = br.readLine();
 
         System.out.println(solution.solution(n, k));
         /*for (int s : solution.solution(n, arr)) {
