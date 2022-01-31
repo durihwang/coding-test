@@ -5,7 +5,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.StringTokenizer;
 
-class Main {
+class Bfs01 {
 
     /**
      * 미로 탈출
@@ -15,12 +15,14 @@ class Main {
      *
      * 풀이
      * 큐를 생성한다.
+     * 이동할 4가지 방향을 설정한다.
      *
      * @param x
      * @param y
      * @param arr
      * @return
      */
+
     //이동할 네 가지 방향 정의 {상, 하, 좌 ,우}
     public static int dx[] = {-1, 1, 0, 0};
     public static int dy[] = {0, 0, -1, 1};
@@ -84,7 +86,7 @@ class Main {
     }
 
     public static void main(String[] args) throws IOException {
-        Main solution = new Main();
+        Bfs01 solution = new Bfs01();
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
         n = Integer.parseInt(st.nextToken());
