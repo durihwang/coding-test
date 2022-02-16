@@ -1,14 +1,10 @@
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.StringTokenizer;
 
-class Main {
-
+public class Dfs02 {
     public class Node {
         int value;
-        Node left;
-        Node right;
+        Main.Node left;
+        Main.Node right;
 
         public Node(int value) {
             this.value = value;
@@ -39,7 +35,7 @@ class Main {
     }
 
     public static void main(String[] args) throws IOException {
-        Main solution = new Main();
+        Dfs02 solution = new Dfs02();
         /*BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int n = Integer.parseInt(br.readLine());
         int[] graph = new int[n];
