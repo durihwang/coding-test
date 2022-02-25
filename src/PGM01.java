@@ -1,6 +1,14 @@
 public class PGM01 {
 
     static int ch[];
+
+    /**
+     * 네트워크
+     *
+     * @param n
+     * @param computers
+     * @return
+     */
     public int solution(int n, int[][] computers) {
         int answer = 0;
         ch = new int[n];

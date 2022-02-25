@@ -3,7 +3,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.*;
 
-class Main {
+class PGM02 {
 
     public static class Node {
         int value;
@@ -22,6 +22,14 @@ class Main {
     static int ch[], dis[];
     static int ch2[];
 
+    /**
+     * 단어 변환
+     *
+     * @param begin
+     * @param target
+     * @param words
+     * @return
+     */
     public int solution(String begin, String target, String[] words) {
 
         int answer = 0;
