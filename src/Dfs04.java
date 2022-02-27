@@ -3,7 +3,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.*;
 
-class Main {
+class Dfs04 {
 
     static String[] answer;
     ArrayList<String> answer_list = new ArrayList<>();
@@ -11,6 +11,16 @@ class Main {
     static int[] ch;
     static int n, k;
 
+    /**
+     * 프로그래머스 여행 경로
+     *
+     * 풀이
+     * 여기서 제일 중요한 것은 백트래킹이다.
+     * 해당 지점에서 여러 갈래로 길이 나누어져 있기 떄문에 꼭 해당 방문을 해제해 주어야 한다.
+     *
+     * @param tickets
+     * @return
+     */
     public String[] solution(String[][] tickets) {
 
         ch = new int[tickets.length];
@@ -54,7 +64,7 @@ class Main {
 
 
     public static void main(String[] args) throws IOException {
-        Main solution = new Main();
+        Dfs04 solution = new Dfs04();
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 //        StringTokenizer st = new StringTokenizer(br.readLine());
 //        k = Integer.parseInt(st.nextToken());

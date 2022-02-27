@@ -3,8 +3,8 @@ import java.io.IOException;
 public class Dfs02 {
     public class Node {
         int value;
-        Main.Node left;
-        Main.Node right;
+        Dfs02.Node left;
+        Dfs02.Node right;
 
         public Node(int value) {
             this.value = value;
