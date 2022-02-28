@@ -25,12 +25,12 @@ class Dfs04 {
 
         ch = new int[tickets.length];
         tickets_compare = tickets;
-        Arrays.sort(tickets_compare, (o1, o2) -> {
+        /*Arrays.sort(tickets_compare, (o1, o2) -> {
             if(o1[0].contentEquals(o2[0]))
                 return o1[1].compareTo(o2[1]);
             else
                 return o1[0].compareTo(o2[0]);
-        });
+        });*/
 
         /*for (String[] s : tickets_compare) {
             System.out.println(s[0]);
@@ -38,6 +38,7 @@ class Dfs04 {
         }*/
 
         dfs(0, "ICN", "ICN");
+        Collections.sort(answer_list);
         System.out.println("answer_list = " + answer_list);
         answer = answer_list.get(0).split(" ");
 
@@ -86,8 +87,8 @@ class Dfs04 {
         }*/
 
 
-//        String[][] tickets = {{"ICN", "B"}, {"B", "ICN"}, {"ICN", "A"}, {"A", "D"}, {"D", "A"}};
-        String tickets[][] = {{"ICN", "SFO"}, {"ICN", "ATL"}, {"SFO", "ATL"}, {"ATL", "ICN"}, {"ATL","SFO"}};
+        String[][] tickets = {{"ICN", "B"}, {"B", "ICN"}, {"ICN", "A"}, {"A", "D"}, {"D", "A"}};
+//        String tickets[][] = {{"ICN", "SFO"}, {"ICN", "ATL"}, {"SFO", "ATL"}, {"ATL", "ICN"}, {"ATL","SFO"}};
 //        String tickets[][] = {{"ICN","AAA"},{"ICN","AAA"},{"ICN","AAA"},{"AAA","ICN"},{"AAA","ICN"}};
 
         for (String s : solution.solution(tickets)) {

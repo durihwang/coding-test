@@ -1,13 +1,18 @@
-import javax.swing.text.html.parser.Entity;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.*;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
-class Main {
+class PGM05 {
 
+    /**
+     * 실패율
+     *
+     * @param N
+     * @param stages
+     * @return
+     */
     public int[] solution(int N, int[] stages) {
         int[] answer;
         HashMap<Integer, Integer> percent = new HashMap<>();
@@ -61,7 +66,7 @@ class Main {
 
 
     public static void main(String[] args) throws IOException {
-        Main solution = new Main();
+        PGM05 solution = new PGM05();
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
         int numbers[] = {2, 1, 2, 6, 2, 4, 3, 3};
