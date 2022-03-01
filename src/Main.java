@@ -1,60 +1,41 @@
-import javax.swing.text.html.parser.Entity;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.*;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
+import java.util.Arrays;
 
 class Main {
 
-    public int[] solution(int N, int[] stages) {
-        int[] answer;
-        HashMap<Integer, Integer> percent = new HashMap<>();
-        HashMap<Integer, Integer> challenger = new HashMap<>();
-        LinkedHashMap<Integer, Double> result = new LinkedHashMap<>();
-        for (int i = 1; i <= N; i++) {
-            percent.put(i, 0);
-            challenger.put(i, 0);
+    public String[] solution(int n, int[] arr1, int[] arr2) {
+        String[] answer = new String[n];
+        String arr1_s[] = new String[arr1.length];
+        String arr2_s[] = new String[arr2.length];
+
+        // 이진수로 변환
+        for (int i = 0; i < arr1.length; i++) {
+            arr1_s[i] = String.format("%0"+n+"d", Long.parseLong(Integer.toBinaryString(arr1[i])));
         }
 
-        for (int i = 0; i < stages.length; i++) {
-            if (stages[i] != N + 1) {
-                percent.put(stages[i], percent.getOrDefault(stages[i], 0) + 1);
-                for (int j = 1; j <= stages[i]; j++) {
-                    challenger.put(j, challenger.getOrDefault(j, 0) + 1);
-                }
-            } else {
-                for (int j = 1; j < stages[i]; j++) {
-                    challenger.put(j, challenger.getOrDefault(j, 0) + 1);
+        for (int i = 0; i < arr2.length; i++) {
+            arr2_s[i] = String.format("%0"+n+"d", Long.parseLong(Integer.toBinaryString(arr2[i])));
+        }
+
+        for (int i = 0; i < n; i++) {
+            char[] chars1 = arr1_s[i].toCharArray();
+            char[] chars2 = arr2_s[i].toCharArray();
+            StringBuilder temp = new StringBuilder();
+            for (int j = 0; j < n; j++) {
+                if (chars1[j] == '1' || chars2[j] == '1') {
+                    temp.append("#");
+                } else if (chars1[j] == '0' && chars2[j] == '0') {
+                    temp.append(" ");
                 }
             }
+            answer[i] = temp.toString();
         }
 
-        percent.forEach((keys, values) -> {
-            if (values == 0) {
-                result.put(keys, 0.0);
-            } else {
-                Integer all = challenger.get(keys);
-                double fail = values / (all * 1.0);
-                result.put(keys, fail);
-            }
-        });
-
-        // result 내림차순으로 정렬
-        List<Map.Entry<Integer, Double>> collect = result.entrySet().stream()
-                .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
-                .collect(Collectors.toList());
-
-        ArrayList<Integer> answer_list = new ArrayList<>();
-
-        for (Map.Entry<Integer, Double> s : collect) {
-            answer_list.add(s.getKey());
-        }
-
-        answer = answer_list.stream().mapToInt(i -> i).toArray();
-
-        System.out.println("Arrays.toString(answer) = " + Arrays.toString(answer));
+        /*for (String s : answer) {
+            System.out.println("s = " + s);
+        }*/
 
         return answer;
     }
@@ -64,8 +45,12 @@ class Main {
         Main solution = new Main();
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-        int numbers[] = {2, 1, 2, 6, 2, 4, 3, 3};
-//        int numbers[] = {4,4,4,4,4};
-        solution.solution(5, numbers);
+//        int n = 5;
+//        int arr1[] = {9, 20, 28, 18, 11};
+//        int arr2[] = {30, 1, 21, 17, 28};
+        int n = 6;
+        int arr1[] = {46, 33, 33 ,22, 31, 50};
+        int arr2[] = {27 ,56, 19, 14, 14, 10};
+        solution.solution(n, arr1, arr2);
     }
 }

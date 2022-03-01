@@ -15,7 +15,6 @@ class PGM04 {
     public String solution(int[] numbers, String hand) {
         StringBuilder answer = new StringBuilder();
 
-        // *은 10, #은 11
         int keypad[][] = {{3,1},{0,0},{0,1},{0,2},{1,0},{1,1},{1,2},{2,0},{2,1},{2,2},{3,0},{3,2}};
         int left_lo[] = keypad[10];
         int right_lo[] = keypad[11];
