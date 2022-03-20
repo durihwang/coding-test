@@ -3,17 +3,23 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
-class Main {
+class Dfs06 {
 
-    static int answer = Integer.MAX_VALUE, n, m;
-    static int[] arr, pm, ch;
+    static int answer = Integer.MIN_VALUE, n, m;
+    static int[] pm;
 
-    public int solution() {
+    public int solution(int[] pm) {
 
         dfs(0);
+
         return 0;
     }
 
+    /**
+     * 중복 순열
+     *
+     * @param L
+     */
     public void dfs(int L) {
 
         if (L == m) {
@@ -22,33 +28,27 @@ class Main {
             }
             System.out.println();
         } else {
-            for (int i = 0; i < n; i++) {
-                if (ch[i] == 0) {
-                    pm[L] = arr[i];
-                    ch[i] = 1;
-                    dfs(L + 1);
-                    ch[i] = 0;
-
-                }
+            for (int i = 1; i <= n; i++) {
+                pm[L] = i;
+                dfs(L + 1);
             }
         }
+
     }
 
     public static void main(String[] args) throws IOException {
-        Main solution = new Main();
+        Dfs06 solution = new Dfs06();
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
+//        int c = Integer.parseInt(br.readLine());
         StringTokenizer st = new StringTokenizer(br.readLine());
         n = Integer.parseInt(st.nextToken());
         m = Integer.parseInt(st.nextToken());
-        arr = new int[n];
         pm = new int[m];
-        ch = new int[n];
-        StringTokenizer st2 = new StringTokenizer(br.readLine());
-        for (int i = 0; i < n; i++) {
-            arr[i] = Integer.parseInt(st2.nextToken());
-        }
-//        System.out.println(solution.solution());
-        solution.solution();
+        /*for (int i = 0; i < n; i++) {
+            StringTokenizer st2 = new StringTokenizer(br.readLine());
+            pm[i] = Integer.parseInt(st2.nextToken());
+        }*/
+        System.out.println(solution.solution(pm));
     }
 }

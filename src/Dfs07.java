@@ -3,7 +3,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
-class Main {
+class Dfs07 {
 
     static int answer = Integer.MAX_VALUE, n, m;
     static int[] arr, pm, ch;
@@ -14,6 +14,11 @@ class Main {
         return 0;
     }
 
+    /**
+     * 순열(중복 X)
+     *
+     * @param L
+     */
     public void dfs(int L) {
 
         if (L == m) {
@@ -35,7 +40,7 @@ class Main {
     }
 
     public static void main(String[] args) throws IOException {
-        Main solution = new Main();
+        Dfs07 solution = new Dfs07();
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
         StringTokenizer st = new StringTokenizer(br.readLine());
