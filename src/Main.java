@@ -1,62 +1,28 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.StringTokenizer;
+import java.time.LocalDate;
+import java.util.LinkedHashSet;
+import java.util.LinkedList;
+import java.util.Stack;
 
 class Main {
 
-    static int n, m, answer;
-    static int[] pm, ch;
+    public int[] solution(int []arr) {
+        int[] answer = {};
+        Stack<Integer> stack = new Stack<>();
+        for (int x: arr) {
 
-
-    public int solution(int left, int right) {
-        int answer = 0;
-
-        for (int i = left; i <= right; i++) {
-            int divisor = divisor(i);
-            if (divisor % 2 == 0) {
-                answer += i;
+            if (stack.isEmpty()) {
+                stack.add(x);
             } else {
-                answer -= i;
-            }
-        }
-
-        return answer;
-    }
-
-    private int divisor(int N) {
-
-        System.out.println("N = " + N);
-        int count = 0;
-        for (int i = 1; i * i <= N; i++) {
-            System.out.println("i = " + i);
-            if (i * i == N) count++;
-            else if (N % i == 0) count += 2;
-        }
-
-        return count;
-    }
-
-    public void dfs(int L, int[] nums) {
-
-        if (L == m) {
-            for (int x : pm) {
-                System.out.print(x + " ");
-            }
-            System.out.println();
-        } else {
-            for (int i = 0; i < n; i++) {
-                if (ch[i] == 0 && pm[L] != nums[i]) {
-                    pm[L] = nums[i];
-                    ch[i] = 1;
-                    dfs(L + 1, nums);
-                    ch[i] = 0;
+                if (stack.peek() != x) {
+                    stack.add(x);
                 }
             }
         }
+
+        return stack.stream().mapToInt(Integer::intValue).toArray();
     }
 
     public static void main(String[] args) throws IOException {
@@ -74,6 +40,8 @@ class Main {
             arr[i] = Integer.parseInt(st2.nextToken());
         }*/
 
-        System.out.println(solution.solution(10, 17));
+//        int[] sizes = {2,1,3,4,1};
+        int[] sizes = {4,4,4,3,3};
+        System.out.println(solution.solution(sizes));
     }
 }
