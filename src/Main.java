@@ -1,28 +1,25 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.time.LocalDate;
-import java.util.LinkedHashSet;
-import java.util.LinkedList;
-import java.util.Stack;
 
 class Main {
 
-    public int[] solution(int []arr) {
-        int[] answer = {};
-        Stack<Integer> stack = new Stack<>();
-        for (int x: arr) {
+    public String solution(int n) {
+        StringBuilder answer = new StringBuilder();
+        int[] ints = {4, 1, 2};
 
-            if (stack.isEmpty()) {
-                stack.add(x);
+        while (n > 0) {
+            int position = n % 3;
+            n /= 3;
+            if (position == 0) {
+                n--;
+                answer.append(ints[0]);
             } else {
-                if (stack.peek() != x) {
-                    stack.add(x);
-                }
+                answer.append(ints[position]);
             }
         }
 
-        return stack.stream().mapToInt(Integer::intValue).toArray();
+        return answer.reverse().toString();
     }
 
     public static void main(String[] args) throws IOException {
@@ -40,8 +37,8 @@ class Main {
             arr[i] = Integer.parseInt(st2.nextToken());
         }*/
 
-//        int[] sizes = {2,1,3,4,1};
-        int[] sizes = {4,4,4,3,3};
-        System.out.println(solution.solution(sizes));
+        int[] sizes1 = {95};
+        int[] sizes2 = {4};
+        System.out.println(solution.solution(3));
     }
 }
