@@ -1,25 +1,44 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.*;
 
 class Main {
 
-    public String solution(int n) {
-        StringBuilder answer = new StringBuilder();
-        int[] ints = {4, 1, 2};
+    public int solution(int[] scoville, int K) {
+        int answer = 0;
+        PriorityQueue<Integer> priorityQueue = new PriorityQueue<>();
 
-        while (n > 0) {
-            int position = n % 3;
-            n /= 3;
-            if (position == 0) {
-                n--;
-                answer.append(ints[0]);
-            } else {
-                answer.append(ints[position]);
-            }
+        for (int x : scoville) {
+            priorityQueue.offer(x);
         }
 
-        return answer.reverse().toString();
+        System.out.println(priorityQueue);
+        System.out.println();
+
+        while (!priorityQueue.isEmpty()) {
+            Integer first = priorityQueue.poll();
+            System.out.println(priorityQueue);
+            if (first < K) {
+                if (!priorityQueue.isEmpty()) {
+                    Integer second = priorityQueue.poll();
+                    System.out.println(priorityQueue);
+                    int result = first + (second * 2);
+                    System.out.println(priorityQueue);
+                    priorityQueue.offer(result);
+                    System.out.println(priorityQueue);
+                    answer++;
+                } else {
+                    return -1;
+                }
+            } else {
+                return answer;
+            }
+
+            System.out.println();
+        }
+
+        return answer;
     }
 
     public static void main(String[] args) throws IOException {
@@ -37,8 +56,8 @@ class Main {
             arr[i] = Integer.parseInt(st2.nextToken());
         }*/
 
-        int[] sizes1 = {95};
+        int[] sizes1 = {1,2,3,9,10,12};
         int[] sizes2 = {4};
-        System.out.println(solution.solution(3));
+        System.out.println(solution.solution(sizes1, 7));
     }
 }
