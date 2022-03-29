@@ -5,40 +5,20 @@ import java.util.*;
 
 class Main {
 
-    public int solution(int[] scoville, int K) {
-        int answer = 0;
-        PriorityQueue<Integer> priorityQueue = new PriorityQueue<>();
+    public long solution(long w, long h) {
 
-        for (int x : scoville) {
-            priorityQueue.offer(x);
+        long gcd = 0;
+        long a = w, b = h;
+
+        while (b > 0) {
+            long temp = a % b;
+            a = b;
+            b = temp;
         }
 
-        System.out.println(priorityQueue);
-        System.out.println();
+        gcd = a;
 
-        while (!priorityQueue.isEmpty()) {
-            Integer first = priorityQueue.poll();
-            System.out.println(priorityQueue);
-            if (first < K) {
-                if (!priorityQueue.isEmpty()) {
-                    Integer second = priorityQueue.poll();
-                    System.out.println(priorityQueue);
-                    int result = first + (second * 2);
-                    System.out.println(priorityQueue);
-                    priorityQueue.offer(result);
-                    System.out.println(priorityQueue);
-                    answer++;
-                } else {
-                    return -1;
-                }
-            } else {
-                return answer;
-            }
-
-            System.out.println();
-        }
-
-        return answer;
+        return (w * h) - (w + h - gcd);
     }
 
     public static void main(String[] args) throws IOException {
@@ -58,6 +38,6 @@ class Main {
 
         int[] sizes1 = {1,2,3,9,10,12};
         int[] sizes2 = {4};
-        System.out.println(solution.solution(sizes1, 7));
+        System.out.println(solution.solution(3, 4));
     }
 }
