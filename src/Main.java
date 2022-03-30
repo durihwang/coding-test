@@ -5,20 +5,27 @@ import java.util.*;
 
 class Main {
 
-    public long solution(long w, long h) {
+    public int solution(int[] priorities, int location) {
+        int answer = 1;
+        PriorityQueue<Integer> queue = new PriorityQueue<>(Collections.reverseOrder());
 
-        long gcd = 0;
-        long a = w, b = h;
-
-        while (b > 0) {
-            long temp = a % b;
-            a = b;
-            b = temp;
+        for (int x : priorities) {
+            queue.offer(x);
         }
 
-        gcd = a;
+        while (!queue.isEmpty()) {
+            for (int i = 0; i < priorities.length; i++) {
+                if (!queue.isEmpty() && priorities[i] == queue.peek()) {
+                    if (i == location) {
+                        return answer;
+                    }
+                    answer++;
+                    queue.poll();
+                }
+            }
+        }
 
-        return (w * h) - (w + h - gcd);
+        return answer;
     }
 
     public static void main(String[] args) throws IOException {
@@ -36,8 +43,8 @@ class Main {
             arr[i] = Integer.parseInt(st2.nextToken());
         }*/
 
-        int[] sizes1 = {1,2,3,9,10,12};
+        int[] sizes1 = {1,1,9,1,1,1};
         int[] sizes2 = {4};
-        System.out.println(solution.solution(3, 4));
+        System.out.println(solution.solution(sizes1, 0));
     }
 }
