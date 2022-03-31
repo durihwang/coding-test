@@ -3,7 +3,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.*;
 
-class Main {
+class PGM09 {
 
     public int[] solution(int[] prices) {
         int[] answer = new int[prices.length];
@@ -25,7 +25,7 @@ class Main {
     }
 
     public static void main(String[] args) throws IOException {
-        Main solution = new Main();
+        PGM09 solution = new PGM09();
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
         /*StringTokenizer st = new StringTokenizer(br.readLine());
