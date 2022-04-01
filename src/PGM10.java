@@ -3,7 +3,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.*;
 
-class Main {
+class PGM10 {
 
     public int solution(int bridge_length, int weight, int[] truck_weights) {
         int answer = 0;
@@ -33,7 +33,7 @@ class Main {
     }
 
     public static void main(String[] args) throws IOException {
-        Main solution = new Main();
+        PGM10 solution = new PGM10();
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
         /*StringTokenizer st = new StringTokenizer(br.readLine());
