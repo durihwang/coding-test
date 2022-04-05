@@ -7,36 +7,46 @@ class GRY01 {
 
     public static class Person implements Comparable<Person>{
 
-        private final int height;
-        private final int weight;
+        private final int start;
+        private final int end;
 
-        public Person(int height, int weight) {
-            this.height = height;
-            this.weight = weight;
+        public Person(int start, int end) {
+            this.start = start;
+            this.end = end;
         }
 
-        public int getHeight() {
-            return height;
+        public int getStart() {
+            return start;
         }
 
-        public int getWeight() {
-            return weight;
+        public int getEnd() {
+            return end;
         }
 
         @Override
         public int compareTo(Person o) {
-            if (this.getHeight() < o.getHeight()) {
-                return 1;
-            } else if (this.getHeight() > o.getHeight()) {
+            if (this.end < o.getEnd()) {
                 return -1;
+            } else if (this.end == o.getEnd()) {
+                if (this.start < o.getStart()) {
+                    return -1;
+                } else if (this.start > o.getStart()) {
+                    return 1;
+                } else {
+                    return 0;
+                }
+            } else if (this.end > o.getEnd()) {
+                return 1;
             } else {
                 return 0;
             }
         }
     }
+
     public int solution(int s, int[][] arr) {
         int answer = 0;
-        int max_weight = Integer.MIN_VALUE;
+        int max_start = 0;
+        int max_end = 0;
 
         ArrayList<Person> list = new ArrayList<>();
 
@@ -46,10 +56,14 @@ class GRY01 {
 
         Collections.sort(list);
 
+        /*for (Person person : list) {
+            System.out.println(person.getStart());
+        }*/
+
         for (Person person : list) {
-            if (person.getWeight() > max_weight) {
+            if (person.getStart() >= max_end) {
                 answer++;
-                max_weight = person.getWeight();
+                max_end = person.getEnd();
             }
         }
 
