@@ -5,28 +5,24 @@ import java.util.*;
 
 class Main {
 
-    public int solution(String name) {
-        int answer = 0;
-        int move = name.length() - 1;
+    public String solution(String number, int k) {
 
-        for (int i = 0; i < name.length(); i++) {
-            answer += Math.min(name.charAt(i) - 'A', 'Z' - name.charAt(i) + 1);
+        StringBuilder answer = new StringBuilder();
+        int max;
+        int index = 0;
 
-            int next = i + 1;
-            while (next < name.length() && name.charAt(next) == 'A') {
-                next++;
+        for (int i = 0; i < number.length() - k; i++) {
+            max = Integer.MIN_VALUE;
+            for (int j = index; j <= k + i; j++) {
+                if (max < number.charAt(j) - '0') {
+                    max = number.charAt(j) - '0';
+                    index = j + 1;
+                }
             }
-
-            // 순서대로 가는 것과, 뒤로 돌아가는 것 중 이동수가 적은 것을 선택
-            move = Math.min(move, i * 2 + name.length() - next);
-            // 2022년 이전 테스트 케이스만 확인하면 여기까지해도 정답처리가 되기 때문에,
-            // 이전 정답들에는 여기까지만 정리되어 있지만,
-            // BBBBAAAAAAAB 와 같이, 처음부터 뒷부분을 먼저 입력하는 것이 더 빠른 경우까지
-            // 고려하려면 아래의 코드가 필요합니다.
-            move = Math.min(move, (name.length() - next) * 2 + i);
+            answer.append(max);
         }
 
-        return answer + move;
+        return answer.toString();
     }
 
     public static void main(String[] args) throws IOException {
@@ -47,7 +43,9 @@ class Main {
 //        int[][] sizes1 = {{0,5,2,4,1},{5,0,3,9,6},{2,3,0,6,3},{4,9,6,0,3},{1,6,3,3,0}};
 //        String[] sizes1 = {"??b", "abc", "cc?"};
 //        int[] sizes1 = {6,10,2};
-        int[] sizes1 = {3,30,34,5,9};
-        System.out.println(solution.solution("JEROEN"));
+//        int[] sizes1 = {3,30,34,5,9};
+//        System.out.println(solution.solution("JEROEN"));
+
+        System.out.println(solution.solution("4177252841", 4));
     }
 }
