@@ -5,24 +5,54 @@ import java.util.*;
 
 class Main {
 
-    public String solution(String number, int k) {
+    public static class Person implements Comparable<Person>{
 
-        StringBuilder answer = new StringBuilder();
-        int max;
-        int index = 0;
+        private final int start;
+        private final int end;
 
-        for (int i = 0; i < number.length() - k; i++) {
-            max = Integer.MIN_VALUE;
-            for (int j = index; j <= k + i; j++) {
-                if (max < number.charAt(j) - '0') {
-                    max = number.charAt(j) - '0';
-                    index = j + 1;
-                }
-            }
-            answer.append(max);
+        public Person(int start, int end) {
+            this.start = start;
+            this.end = end;
         }
 
-        return answer.toString();
+        public int getStart() {
+            return start;
+        }
+
+        public int getEnd() {
+            return end;
+        }
+
+        @Override
+        public int compareTo(Person o) {
+            if (this.end == o.getEnd()) {
+                return this.start - o.getStart();
+            } else {
+                return this.end - o.getEnd();
+            }
+        }
+    }
+
+    public int solution(int s, int[][] arr) {
+        int answer = 0;
+        int max_end = 0;
+
+        ArrayList<Person> list = new ArrayList<>();
+
+        for (int i = 0; i < arr.length; i++) {
+            list.add(new Person(arr[i][0], arr[i][1]));
+        }
+
+        Collections.sort(list);
+
+        for (Person person : list) {
+            if (person.getStart() >= max_end) {
+                answer++;
+                max_end = person.getEnd();
+            }
+        }
+
+        return answer;
     }
 
     public static void main(String[] args) throws IOException {
@@ -45,7 +75,15 @@ class Main {
 //        int[] sizes1 = {6,10,2};
 //        int[] sizes1 = {3,30,34,5,9};
 //        System.out.println(solution.solution("JEROEN"));
+        int n = Integer.parseInt(br.readLine());
+        int[][] arr = new int[n][n];
+        for (int i = 0; i < n; i++) {
+            StringTokenizer st2 = new StringTokenizer(br.readLine());
+            for (int j = 0; j < 2; j++) {
+                arr[i][j] = Integer.parseInt(st2.nextToken());
+            }
+        }
 
-        System.out.println(solution.solution("4177252841", 4));
+        System.out.println(solution.solution(n, arr));
     }
 }

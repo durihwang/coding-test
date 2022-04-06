@@ -25,28 +25,17 @@ class GRY01 {
 
         @Override
         public int compareTo(Person o) {
-            if (this.end < o.getEnd()) {
-                return -1;
-            } else if (this.end == o.getEnd()) {
-                if (this.start < o.getStart()) {
-                    return -1;
-                } else if (this.start > o.getStart()) {
-                    return 1;
-                } else {
-                    return 0;
-                }
-            } else if (this.end > o.getEnd()) {
-                return 1;
+            if (this.end == o.getEnd()) {
+                return this.start - o.getStart();
             } else {
-                return 0;
+                return this.end - o.getEnd();
             }
         }
     }
 
     public int solution(int s, int[][] arr) {
         int answer = 0;
-        int max_start = 0;
-        int max_end = 0;
+        int max_end = -1;
 
         ArrayList<Person> list = new ArrayList<>();
 
@@ -55,10 +44,6 @@ class GRY01 {
         }
 
         Collections.sort(list);
-
-        /*for (Person person : list) {
-            System.out.println(person.getStart());
-        }*/
 
         for (Person person : list) {
             if (person.getStart() >= max_end) {
