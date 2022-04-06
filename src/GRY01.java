@@ -39,8 +39,8 @@ class GRY01 {
 
         ArrayList<Person> list = new ArrayList<>();
 
-        for (int i = 0; i < arr.length; i++) {
-            list.add(new Person(arr[i][0], arr[i][1]));
+        for (int[] ints : arr) {
+            list.add(new Person(ints[0], ints[1]));
         }
 
         Collections.sort(list);
