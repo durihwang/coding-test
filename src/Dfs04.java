@@ -40,6 +40,8 @@ class Dfs04 {
         dfs(0, "ICN", "ICN");
         Collections.sort(answer_list);
         System.out.println("answer_list = " + answer_list);
+        Collections.sort(answer_list);
+        System.out.println("answer_list = " + answer_list);
         answer = answer_list.get(0).split(" ");
 
         return answer;
