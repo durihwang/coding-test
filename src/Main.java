@@ -1,70 +1,41 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.*;
 
 class Main {
 
-    public int solution(int n) {
-        int answer = 1;
-        int sum = 0;
-        int start = 0;
-        int limit = n / 2 + 1;
-        int[] arr = new int[limit];
+    public String solution(int n) {
+        StringBuilder answer = new StringBuilder();
+        int[] ints = {4, 1, 2};
 
-        for (int i = 0; i < limit; i++) {
-            arr[i] = i + 1;
-        }
+        while (n > 0) {
 
-        for (int end = 0; end < limit; end++) {
-            sum += arr[end];
+            int position = n % 3;
+            n /= 3;
 
-            if (sum == n) {
-                answer++;
+            if (position == 0) {
+                System.out.println(n);
+                n --;
+                System.out.println(n);
             }
 
-            while (sum >= n) {
-                sum -= arr[start++];
-
-                if (sum == n) {
-                    answer++;
-                }
-            }
+            answer.append(ints[position]);
         }
 
-        return answer;
+        return answer.reverse().toString();
     }
 
     public static void main(String[] args) throws IOException {
         Main solution = new Main();
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-        /*StringTokenizer st = new StringTokenizer(br.readLine());
-        n = Integer.parseInt(st.nextToken());
-        m = Integer.parseInt(st.nextToken());
-        arr = new int[n];
-        pm = new int[m];
-        ch = new int[n];
+        int[][] sizes1 = {{80,20}, {50,40}, {30,10}};
+        /*int n = Integer.parseInt(br.readLine());
+        int[] arr = new int[n];
         StringTokenizer st2 = new StringTokenizer(br.readLine());
         for (int i = 0; i < n; i++) {
             arr[i] = Integer.parseInt(st2.nextToken());
         }*/
-
-//        int[][] sizes1 = {{0,5,2,4,1},{5,0,3,9,6},{2,3,0,6,3},{4,9,6,0,3},{1,6,3,3,0}};
-//        String[] sizes1 = {"??b", "abc", "cc?"};
-//        int[] sizes1 = {6,10,2};
-//        int[] sizes1 = {3,30,34,5,9};
-//        System.out.println(solution.solution("JEROEN"));
-        /*int n = Integer.parseInt(br.readLine());
-        int[][] arr = new int[n][n];
-        for (int i = 0; i < n; i++) {
-            StringTokenizer st2 = new StringTokenizer(br.readLine());
-            for (int j = 0; j < 2; j++) {
-                arr[i][j] = Integer.parseInt(st2.nextToken());
-            }
-        }*/
-
-        int n = Integer.parseInt(br.readLine());
-        System.out.println(solution.solution(n));
+        System.out.println(solution.solution(6));
     }
 }
