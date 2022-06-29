@@ -5,26 +5,28 @@ import java.util.*;
 
 class Main {
 
-    public int solution(int n, int[] stations, int w) {
-        int answer = 0;
+    public int removeDuplicates(int[] nums) {
 
-        // [실행] 버튼을 누르면 출력 값을 볼 수 있습니다.
-        System.out.println("Hello Java");
+        HashSet<Integer> hashSet = new LinkedHashSet<>();
 
-        return answer;
+        for (int s : nums) {
+            hashSet.add(s);
+        }
+
+        int i = 0;
+        for (int s : hashSet) {
+            nums[i] = s;
+            i++;
+        }
+
+        return hashSet.size();
     }
 
     public static void main(String[] args) throws IOException {
         Main solution = new Main();
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-        /*int n = Integer.parseInt(br.readLine());
-        int[] arr = new int[n];
-        StringTokenizer st2 = new StringTokenizer(br.readLine());
-        for (int i = 0; i < n; i++) {
-            arr[i] = Integer.parseInt(st2.nextToken());
-        }*/
-
-        int[] s = {2,1,1,0,1};
+        int[] nums = {-3,-1,0,0,0,3,3};
+        System.out.println(solution.removeDuplicates(nums));
     }
 }
