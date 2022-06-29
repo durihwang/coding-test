@@ -22,32 +22,17 @@ public class Solution {
         }
     }
 
-    public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
 
-        if (list1 == null) {
-            return list2;
-        }
-
-        if (list2 == null) {
-            return list1;
-        }
-
-        if (list1.val < list2.val) {
-            list1.next = mergeTwoLists(list1.next, list2);
-            return list1;
-        } else {
-            list2.next = mergeTwoLists(list1, list2.next);
-            return list2;
-        }
+        return new ListNode();
     }
 
     public static void main(String[] args) throws IOException {
         Solution solution = new Solution();
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-        ListNode listNode1 = new ListNode(1, new ListNode(2, new ListNode(4)));
-        ListNode listNode2 = new ListNode(1, new ListNode(3, new ListNode(4)));
-        System.out.println(solution.mergeTwoLists(listNode1, listNode2));
-        ListNode listNode = solution.mergeTwoLists(listNode1, listNode2);
+        ListNode listNode1 = new ListNode(2, new ListNode(4, new ListNode(3)));
+        ListNode listNode2 = new ListNode(5, new ListNode(6, new ListNode(4)));
+        System.out.println(solution.addTwoNumbers(listNode1, listNode2));
     }
 }
