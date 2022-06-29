@@ -5,30 +5,35 @@ import java.util.HashMap;
 
 public class Solution {
 
-    public String longestCommonPrefix(String[] strs) {
+    public static class ListNode {
 
-        String answer = "";
-        int start = 0;
-        int end = 0;
+        int val;
+        ListNode next;
 
-        while (start < strs.length && end < strs.length) {
-            for (int i = 0; i < strs.length - 1; i++) {
-                for (int j = 0; j < strs[i].length(); j++) {
-                    System.out.println(strs[i].charAt(j));
-                }
-            }
+        ListNode() {
         }
 
+        ListNode(int val) {
+            this.val = val;
+        }
 
-        return answer;
+        ListNode(int val, ListNode next) {
+            this.val = val;
+            this.next = next;
+        }
+    }
 
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+
+        return new ListNode();
     }
 
     public static void main(String[] args) throws IOException {
         Solution solution = new Solution();
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-        String[] s = {"flower", "flow", "flight"};
-        System.out.println(solution.longestCommonPrefix(s));
+        ListNode listNode1 = new ListNode(2, new ListNode(4, new ListNode(3)));
+        ListNode listNode2 = new ListNode(5, new ListNode(6, new ListNode(4)));
+        System.out.println(solution.addTwoNumbers(listNode1, listNode2));
     }
 }
