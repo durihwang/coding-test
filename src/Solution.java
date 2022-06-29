@@ -1,6 +1,8 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 
 public class Solution {
 
@@ -62,41 +64,53 @@ public class Solution {
 
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
 
-        ListNode listNode = null;
-        int sum = 0;
+        ListNode listNode = new ListNode(0);
+        ListNode result = listNode;
+        int carry = 0;
 
-        try {
-            sum = Integer.parseInt(reverseNode(l1).toString()) + Integer.parseInt(
-                reverseNode(l2).toString());
-        } catch (Exception e) {
-            return new ListNode(0);
+        while (l1 != null || l2 != null) {
+
+            int sum = carry;
+
+            if (l1 != null) {
+                sum += l1.val;
+                l1 = l1.next;
+            }
+
+            if (l2 != null) {
+                sum += l2.val;
+                l2 = l2.next;
+            }
+
+            if (sum >= 10) {
+                listNode.next = new ListNode(sum - 10);
+                carry = 1;
+            } else {
+                listNode.next = new ListNode(sum);
+                carry = 0;
+            }
+
+            listNode = listNode.next;
         }
 
-        String resultString = String.valueOf(sum);
-
-        for (int i = resultString.length() - 1; i >= 0; i--) {
-            Character c = resultString.charAt(i);
-            int parseInt = Integer.parseInt(String.valueOf(c));
-
-            ListNode newNode = new ListNode(parseInt);
-            listNode = addNode(listNode, newNode);
+        if (carry == 1) {
+            listNode.next = new ListNode(1);
         }
 
-        printNode(listNode);
+        return result.next;
 
-        return listNode;
     }
 
     public static void main(String[] args) throws IOException {
         Solution solution = new Solution();
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-        ListNode listNode1 = new ListNode(2, new ListNode(4, new ListNode(3)));
-        ListNode listNode2 = new ListNode(5, new ListNode(6, new ListNode(4)));
-        /*ListNode listNode1 = new ListNode(9);
+//        ListNode listNode1 = new ListNode(2, new ListNode(4, new ListNode(3)));
+//        ListNode listNode2 = new ListNode(5, new ListNode(6, new ListNode(4)));
+        ListNode listNode1 = new ListNode(9);
         ListNode listNode2 = new ListNode(1,
             new ListNode(9, new ListNode(9, new ListNode(9, new ListNode(9,
-                new ListNode(9, new ListNode(9, new ListNode(9, new ListNode(9, new ListNode(9))))))))));*/
+                new ListNode(9, new ListNode(9, new ListNode(9, new ListNode(9, new ListNode(9))))))))));
         System.out.println(solution.addTwoNumbers(listNode1, listNode2));
     }
 }
