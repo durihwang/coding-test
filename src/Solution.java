@@ -1,30 +1,33 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class Solution {
 
-    public int lengthOfLongestSubstring(String s) {
+    static int[] check;
+    List<List<Integer>> answer = new ArrayList<>();
 
-        if (s.length() == 0) {
-            return 0;
+    public int permute(int[] nums, int amount) {
+
+        int result = Integer.MAX_VALUE;
+        int answer = 0;
+        ArrayList<Integer> list = new ArrayList<>();
+
+        for (int s : nums) {
+            list.add(s);
         }
+        Collections.sort(list);
 
-        HashSet<Character> compare = new HashSet<>();
-        int answer = 1;
-        int i = 0;
-        int j = 1;
-
-        while (i < s.length() && j < s.length()) {
-            if (!compare.contains(s.charAt(j)) && s.charAt(i) != s.charAt(j)) {
-                compare.add(s.charAt(j));
-                answer = Math.max(answer, j - i + 1);
-                j++;
-            } else {
-                compare = new HashSet<>();
-                i++;
-                j = i + 1;
+        for (int coin : list) {
+            answer += amount / coin;
+            int n = amount % coin;
+            System.out.println(answer);
+            if (n == 0) {
+                result = Math.min(result, answer);
+                answer = 0;
             }
         }
 
@@ -35,7 +38,7 @@ public class Solution {
         Solution solution = new Solution();
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-        int[][] matrix = {{1, 2, 3, 4}, {5, 6, 7, 8}, {9, 10, 11, 12}};
-        System.out.println(solution.lengthOfLongestSubstring(""));
+        int[] nums = {8, 5, 3, 2, 1};
+        System.out.println(solution.permute(nums, 12));
     }
 }
