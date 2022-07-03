@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class CP02 {
 
-    public class ListNode {
+    public static class ListNode {
 
         int val;
         ListNode next;
@@ -25,13 +25,16 @@ public class CP02 {
 
     public ListNode solution() {
 
-        ListNode l1 = addNode(new ListNode(), 1);
-        l1 = addNode(l1, 3);
-        l1 = addNode(l1, 9);
+        ListNode l1 = addLastNode(new ListNode(), 1);
+        l1 = addLastNode(l1, 3);
+        l1 = addLastNode(l1, 9);
 
-        ListNode l2 = addNode(new ListNode(), 3);
-        l2 = addNode(l2, 5);
-        l2 = addNode(l2, 2);
+        ListNode l2 = addLastNode(new ListNode(), 3);
+        l2 = addLastNode(l2, 5);
+        l2 = addLastNode(l2, 2);
+
+        printNode(l1);
+        printNode(l2);
 
         ListNode listNode = new ListNode(0);
         ListNode resultNode = listNode;
@@ -63,12 +66,17 @@ public class CP02 {
                 listNode.next = new ListNode(sum);
                 carry = 0;
             }
+
+            listNode = listNode.next;
+            System.out.println();
         }
 
         // 마지막 계산에서 carry 값이 있다면 다음 노드 하나를 더 추가해서 1을 넣어준다.
         if (carry == 1) {
             listNode.next = new ListNode(carry);
         }
+
+        printNode(resultNode);
 
         return resultNode.next;
 
@@ -92,7 +100,18 @@ public class CP02 {
         }
     }
 
-    public ListNode addNode(ListNode listNode, int val) {
+    public ListNode addLastNode(ListNode listNode, int val) {
+        ListNode newNode = new ListNode(val);
+        if (listNode == null) {
+            listNode = newNode;
+        } else {
+            listNode.next = newNode;
+            listNode = newNode;
+        }
+        return listNode;
+    }
+
+    public ListNode addFirstNode(ListNode listNode, int val) {
         if (listNode == null) {
             return new ListNode(val);
         }
