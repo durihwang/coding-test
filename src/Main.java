@@ -5,25 +5,48 @@ import java.util.*;
 
 class Main {
 
-    public void solution(String[] s, String[] t) {
+    public void solution(String[] s) {
 
-        int answer = 0;
+        ArrayList<Integer> list = new ArrayList<>();
 
-        HashSet<String> list = new HashSet<>(Arrays.asList(s));
-        ArrayList<String> result = new ArrayList<>();
-        list.addAll(Arrays.asList(s));
+        for (int i = 0; i < s.length; i++) {
+            int result = checkPalindrome(0, s[i].length() - 1, 0, s[i]);
 
-        for (String y : t) {
-            if (list.contains(y)) {
-                result.add(y);
-                answer++;
+            if (result == 2) {
+
+            } else {
+                list.add(result);
             }
         }
 
-        Collections.sort(result);
-        System.out.println(answer);
-        for (String z : result) {
-            System.out.println(z);
+        for (int x : list) {
+            System.out.println(x);
+        }
+    }
+
+    private int checkPalindrome(int left, int right, int check, String s) {
+
+        int pseudo = 0;
+
+        while (left < right) {
+
+            if (s.charAt(left) != s.charAt(right)) {
+                check++;
+                pseudo = Math.min(checkPalindrome(left + 1, right, check, s),
+                    checkPalindrome(left, right - 1, check, s));
+            }
+            left++;
+            right--;
+        }
+
+        System.out.println("pseudo = " + pseudo);
+
+        if (check >= 2) {
+            return 2;
+        } else if (check == 1){
+            return 1;
+        } else {
+            return 0;
         }
     }
 
@@ -32,22 +55,13 @@ class Main {
         Main solution = new Main();
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-        StringTokenizer st = new StringTokenizer(br.readLine());
-        int n = Integer.parseInt(st.nextToken());
-        int m = Integer.parseInt(st.nextToken());
-
+        int n = Integer.parseInt(br.readLine());
         String[] s = new String[n];
-        String[] t = new String[m];
-
         for (int i = 0; i < n; i++) {
             s[i] = br.readLine();
         }
 
-        for (int i = 0; i < m; i++) {
-            t[i] = br.readLine();
-        }
-
-        solution.solution(s, t);
+        solution.solution(s);
 
     }
 }
