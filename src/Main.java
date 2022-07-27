@@ -5,21 +5,26 @@ import java.util.*;
 
 class Main {
 
-    public int solution(String s, String t) {
+    public void solution(String[] s, String[] t) {
 
         int answer = 0;
-        int[][] dp = new int[s.length() + 1][t.length() + 1];
 
-        for (int i = 0; i < s.length(); i++) {
-            for (int j = 0; j < t.length(); j++) {
-                if (s.charAt(i) == t.charAt(j)) {
-                    dp[i+1][j+1] = dp[i][j] + 1;
-                    answer = Math.max(answer, dp[i + 1][j + 1]);
-                }
+        HashSet<String> list = new HashSet<>(Arrays.asList(s));
+        ArrayList<String> result = new ArrayList<>();
+        list.addAll(Arrays.asList(s));
+
+        for (String y : t) {
+            if (list.contains(y)) {
+                result.add(y);
+                answer++;
             }
         }
 
-        return answer;
+        Collections.sort(result);
+        System.out.println(answer);
+        for (String z : result) {
+            System.out.println(z);
+        }
     }
 
     public static void main(String[] args) throws IOException {
@@ -27,10 +32,22 @@ class Main {
         Main solution = new Main();
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-        String s = br.readLine();
-        String t = br.readLine();
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        int n = Integer.parseInt(st.nextToken());
+        int m = Integer.parseInt(st.nextToken());
 
-        System.out.println(solution.solution(s, t));
+        String[] s = new String[n];
+        String[] t = new String[m];
+
+        for (int i = 0; i < n; i++) {
+            s[i] = br.readLine();
+        }
+
+        for (int i = 0; i < m; i++) {
+            t[i] = br.readLine();
+        }
+
+        solution.solution(s, t);
 
     }
 }
