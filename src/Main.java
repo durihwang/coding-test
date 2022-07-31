@@ -5,35 +5,36 @@ import java.util.*;
 
 class Main {
 
-    public void solution(String s) {
+    public int solution(int m, int[][] n) {
 
-        ArrayList<String> list = new ArrayList<>();
+        int answer = -1;
+        for (int i = 0; i < n.length; i++) {
 
-        for (int i = 0; i < s.length(); i++) {
-            list.add(s.substring(i));
         }
 
-        Collections.sort(list);
 
-        for (String t : list) {
-            System.out.println(t);
-        }
+        return answer;
     }
 
     public static void main(String[] args) throws IOException {
 
         Main solution = new Main();
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        int n = Integer.parseInt(st.nextToken());
+        int m = Integer.parseInt(st.nextToken());
+        int[][] nn = new int[n][2];
 
-        /*int n = Integer.parseInt(br.readLine());
-        String[] s = new String[n];
         for (int i = 0; i < n; i++) {
-            s[i] = br.readLine();
-        }*/
+            StringTokenizer stt = new StringTokenizer(br.readLine());
+            int[] ints = new int[2];
+            ints[0] = Integer.parseInt(stt.nextToken());
+            ints[1] = Integer.parseInt(stt.nextToken());
+            nn[i] = ints;
+        }
 
-        String s = br.readLine();
+        System.out.println(solution.solution(m, nn));
 
-        solution.solution(s);
-
+        br.close();
     }
 }
