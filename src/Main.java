@@ -5,15 +5,31 @@ import java.util.*;
 
 class Main {
 
-    public int solution(int m, int[][] n) {
+    public int solution(int m, Integer[][] n) {
 
-        int answer = -1;
-        for (int i = 0; i < n.length; i++) {
+        int answer = 0;
+        Arrays.sort(n, new Comparator<Integer[]>() {
+            @Override
+            public int compare(Integer[] o1, Integer[] o2) {
+                if (o1[1] == o2[1]) {
+                    return o2[0] - o1[0];
+                } else {
+                    return o1[1] - o2[1];
+                }
+            }
+        });
 
+        for (Integer[] ints : n) {
+            if (m >= ints[0]) {
+
+            }
         }
 
-
-        return answer;
+        if (answer == 0) {
+            return -1;
+        } else {
+            return answer;
+        }
     }
 
     public static void main(String[] args) throws IOException {
@@ -23,11 +39,11 @@ class Main {
         StringTokenizer st = new StringTokenizer(br.readLine());
         int n = Integer.parseInt(st.nextToken());
         int m = Integer.parseInt(st.nextToken());
-        int[][] nn = new int[n][2];
+        Integer[][] nn = new Integer[n][2];
 
         for (int i = 0; i < n; i++) {
             StringTokenizer stt = new StringTokenizer(br.readLine());
-            int[] ints = new int[2];
+            Integer[] ints = new Integer[2];
             ints[0] = Integer.parseInt(stt.nextToken());
             ints[1] = Integer.parseInt(stt.nextToken());
             nn[i] = ints;
