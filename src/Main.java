@@ -3,89 +3,67 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.lang.reflect.Array;
 import java.util.*;
 
 class Main {
 
-    static BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-    static int answer = 0;
-    static int[][] s;
+    static String[] k;
+    static boolean[] check;
+    static ArrayList<String> answer = new ArrayList<>();
 
     public static void main(String[] args) throws IOException {
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int n = Integer.parseInt(br.readLine());
-        s = new int[n][n];
+        k = new String[n + 1];
+        check = new boolean[10];
+        StringTokenizer st = new StringTokenizer(br.readLine());
         for (int i = 0; i < n; i++) {
-            StringTokenizer st = new StringTokenizer(br.readLine());
-            for (int j = 0; j < n; j++) {
-                s[i][j] = Integer.parseInt(st.nextToken());
-            }
+            k[i] = st.nextToken();
         }
 
-        answer = go(0, new ArrayList<>(), new ArrayList<>(), n);
+        go(0, "", n);
 
-        System.out.println(answer);
+        Collections.sort(answer);
+        System.out.println(answer.get(answer.size() - 1));
+        System.out.println(answer.get(0));
+
     }
 
-    static int go(int index, ArrayList<Integer> first, ArrayList<Integer> second, int n) {
-
-        // 인덱스와 주어진 n값이 같은 경우
-        if (index == n) {
-            if (first.size() != n / 2) {
-                return -1;
+    static void go(int level, String nums, int n) {
+        if (level == n + 1) {
+            if (ok(nums, n)) {
+                answer.add(nums);
             }
-            if (second.size() != n / 2) {
-                return -1;
-            }
-
-            int t1 = 0;
-            int t2 = 0;
-
-            for (int i = 0; i < n / 2; i++) {
-                for (int j = 0; j < n / 2; j++) {
-                    if (i == j) {
-                        continue;
-                    }
-                    t1 += s[first.get(i)][first.get(j)];
-                    t2 += s[second.get(i)][second.get(j)];
+        } else {
+            for (int i = 0; i <= 9; i++) {
+                if (!check[i]) {
+                    check[i] = true;
+                    go(level + 1, nums + i, n);
+                    check[i] = false;
                 }
             }
-
-            System.out.println(t1);
-            System.out.println(t2);
-            System.out.println();
-            return Math.abs(t1 - t2);
-
-        } else {
-
-            if (first.size() > n / 2) {
-                return -1;
-            }
-            if (second.size() > n / 2) {
-                return -1;
-            }
-            int ans = -1;
-
-            // 첫번째 팀인 경우
-            first.add(index);
-            int team1 = go(index + 1, first, second, n);
-            if (team1 != -1 && ans > team1) {
-                ans = team1;
-            }
-            first.remove(first.size() - 1);
-
-            // 두번째 팀인 경우
-            second.add(index);
-            int team2 = go(index + 1, first, second, n);
-            if (team2 != -1 && ans > team2) {
-                ans = team2;
-            }
-            second.remove(second.size() - 1);
-
-            return ans;
         }
-   }
+    }
+
+    static boolean ok(String nums, int n) {
+        for (int i = 0; i < n; i++) {
+            int n1 = Character.getNumericValue(nums.charAt(i));
+            int n2 = Character.getNumericValue(nums.charAt(i + 1));
+            if (k[i].equals("<")) {
+                if (n1 > n2) {
+                    return false;
+                }
+            } else if (k[i].equals(">")) {
+                if (n1 < n2) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
 
 
 }
