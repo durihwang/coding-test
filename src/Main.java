@@ -10,21 +10,46 @@ class Main {
 
     static int n;
     static int[] answer;
+    static int[][] price;
     public static void main(String[] args) throws IOException {
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         n = Integer.parseInt(br.readLine());
+        int min = Integer.MAX_VALUE;
+        price = new int[n][n];
         answer = new int[n];
-        for (int i = 1; i <= n; i++) {
-            answer[i - 1] = i;
+        // 주어진 N 만큼 처음 순열을 만들어준다.
+        for (int i = 0; i < n; i++) {
+            answer[i] = i;
         }
 
-        do {
-            for (int x : answer) {
-                System.out.print(x + " ");
+        // 주어진 입력값의 도시 이동 비용을 저장한다.
+        for (int i = 0; i < n; i++) {
+            StringTokenizer st = new StringTokenizer(br.readLine());
+            for (int j = 0; j < n; j++) {
+                price[i][j] = Integer.parseInt(st.nextToken());
             }
-            System.out.println();
+        }
+
+        // 처음 순열부터 마지막 순열까지 돌면서 주어진 공식대로 도시 이동 비용을 계산한다.
+        // 만약 중간에 비용이 0이라면 이동할 수 없기 때문에 해당 순열은 제외한다.
+        do {
+            boolean ok = true;
+            int sum = 0;
+            for (int i = 0; i < n - 1; i++) {
+                if (price[answer[i]][answer[i + 1]] == 0) {
+                    ok = false;
+                } else {
+                    sum += price[answer[i]][answer[i + 1]];
+                }
+            }
+            if (ok && price[answer[n-1]][answer[0]] != 0) {
+                sum += price[answer[n-1]][answer[0]];
+                min = Math.min(min, sum);
+            }
         } while (go());
+
+        System.out.println(min);
 
     }
 
