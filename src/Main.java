@@ -12,41 +12,34 @@ class Main {
     static int k;
     static int answer;
     static boolean check;
+    static int[] d;
+    static int[] p;
     static ArrayList<Long> reduction = new ArrayList<>();
 
     public static void main(String[] args) throws IOException {
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         n = Integer.parseInt(br.readLine());
-
-        for (int i = 0; i < 10; i++) {
-            recursive(1, i);
+        d = new int[n + 1];
+        p = new int[n + 1];
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        for (int i = 1; i <= n; i++) {
+            p[i] = Integer.parseInt(st.nextToken());
         }
 
-        System.out.println(reduction.size());
-        Collections.sort(reduction);
+        d[0] = 0;
 
-        if (n < 10) {
-            System.out.println(n);
-        } else {
-            if (reduction.size() <= n) {
-                System.out.println(-1);
-            } else {
-                System.out.println(reduction.get(n));
+        // 1부터 n번째 까지의 카드팩의 가격 모두 구한다.
+        for (int i = 1; i <= n; i++) {
+
+            // 1은 1번, 2는 2번 ... n은 n번 카드를 얻을 수 있다.
+            for (int j = 1; j <= i; j++) {
+                d[i] = Math.max(d[i], d[i - j] + p[j]);
             }
         }
+
+        System.out.println(Arrays.toString(d));
+
     }
 
-    public static void recursive(int level, long number) {
-
-        if (level > 10) {
-            return;
-        }
-
-        reduction.add(number);
-
-        for (int i = 0; i < number % 10; i++) {
-            recursive(level + 1, (number * 10) + i);
-        }
-    }
 }
