@@ -35,10 +35,12 @@ class Main {
             // 1은 1번, 2는 2번 ... n은 n번 카드를 얻을 수 있다.
             for (int j = 1; j <= i; j++) {
                 d[i] = Math.max(d[i], d[i - j] + p[j]);
+                System.out.println(Arrays.toString(d));
             }
+
         }
 
-        System.out.println(Arrays.toString(d));
+        System.out.println(d[n]);
 
     }
 
