@@ -14,37 +14,49 @@ class Main {
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         n = Integer.parseInt(br.readLine());
-        int mod = 1000000000;
-        int answer = 0;
-
-        int[][] d = new int[101][10];
-        for (int i = 1; i < 10; i++) {
-            d[1][i] = 1;
+        int max = 0;
+        int[] test = new int[n];
+        for (int i = 0; i < n; i++) {
+            test[i] = Integer.parseInt(br.readLine());
+            max = Math.max(max, test[i]);
         }
 
-        //
-        for (int i = 2; i <= n; i++) {
-            for (int j = 0; j < 10; j++) {
-                if (j > 0) {
-                    d[i][j] += d[i - 1][j - 1];
+        long mod = 1000000009L;
+        long answer;
+
+        long[][] d = new long[100001][4];
+
+        for (int i = 1; i <= max; i++) {
+            if (i - 1 >= 0) {
+                d[i][1] = d[i - 1][2] + d[i - 1][3];
+                if (i == 1) {
+                    d[i][1] = 1;
                 }
-                if (j < 9) {
-                    d[i][j] += d[i - 1][j + 1];
-                }
-                d[i][j] %= mod;
             }
+
+            if (i - 1 >= 1) {
+                d[i][2] = d[i - 2][1] + d[i - 2][3];
+                if (i == 2) {
+                    d[i][2] = 1;
+                }
+            }
+
+            if (i - 1 >= 2) {
+                d[i][3] = d[i - 3][1] + d[i - 3][2];
+                if (i == 3) {
+                    d[i][3] = 1;
+                }
+            }
+
+            d[i][1] %= mod;
+            d[i][2] %= mod;
+            d[i][3] %= mod;
         }
 
-        /*for (int[] s : d) {
-            System.out.println(Arrays.toString(s));
-        }*/
-
-        // 점화식
-        for (int i = 0; i <= 9; i++) {
-            answer += d[n][i];
+        for (int i = 0; i < n; i++) {
+            answer = d[test[i]][1] + d[test[i]][2] + d[test[i]][3];
+            System.out.println(answer % mod);
         }
-
-        System.out.println(answer % mod);
     }
 
 }
