@@ -24,25 +24,26 @@ class Main {
         long mod = 1000000009L;
         long answer;
 
-        long[][] d = new long[100001][4];
+        long[][] d = new long[1000001][4];
 
-        for (int i = 1; i <= max; i++) {
+        for (int i = 0; i <= max; i++) {
+
             if (i - 1 >= 0) {
-                d[i][1] = d[i - 1][2] + d[i - 1][3];
+                d[i][1] += d[i - 1][1] + d[i - 1][2] + d[i - 1][3];
                 if (i == 1) {
                     d[i][1] = 1;
                 }
             }
 
             if (i - 1 >= 1) {
-                d[i][2] = d[i - 2][1] + d[i - 2][3];
+                d[i][2] = d[i - 2][1] + d[i - 2][2] + d[i - 2][3];
                 if (i == 2) {
                     d[i][2] = 1;
                 }
             }
 
             if (i - 1 >= 2) {
-                d[i][3] = d[i - 3][1] + d[i - 3][2];
+                d[i][3] = d[i - 3][1] + d[i - 3][2] + d[i - 3][3];
                 if (i == 3) {
                     d[i][3] = 1;
                 }
@@ -53,10 +54,17 @@ class Main {
             d[i][3] %= mod;
         }
 
+
+        for (int i = 0; i < 6; i++) {
+//            System.out.println(Arrays.toString(d[i]));
+        }
+
         for (int i = 0; i < n; i++) {
             answer = d[test[i]][1] + d[test[i]][2] + d[test[i]][3];
             System.out.println(answer % mod);
         }
+
+
     }
 
 }
