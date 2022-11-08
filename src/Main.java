@@ -9,56 +9,32 @@ import java.util.*;
 class Main {
 
     static int n;
-    static int[] v;
-    static long[] a;
-    static ArrayList<Long> list = new ArrayList<>();
 
     public static void main(String[] args) throws IOException {
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         n = Integer.parseInt(br.readLine());
-        a = new long[n];
-        long[] d = new long[n];
-        v = new int[n];
-
-        long answer = 0;
-        int p = 0;
         StringTokenizer st = new StringTokenizer(br.readLine());
+
+        int[] a = new int[n];
+        int[][] d = new int[n][2];
         for (int i = 0; i < n; i++) {
             a[i] = Integer.parseInt(st.nextToken());
-            d[i] = 1;
-            v[i] = -1;
         }
 
-        for (int i = 0; i < n; i++) {
-            for (int j = i; j >= 0; j--) {
-                if (d[j] + 1 > d[i] && a[i] > a[j]) {
-                    d[i] = d[j] + 1;
-                    v[i] = j;
-                }
-            }
-        }
+        // 0은 제거하지 않는 경우 -> 기존대로 연속합의 최대값을 저장해준다.
+        // 1은 제거하는 경우 -> 현재 수를 제거하는 경우와 제거하지 않는 경우로 나누어진다.
+        d[0][0] = d[0][1] = a[0];
+        int answer = a[0];
 
-        for (int i = 0; i < d.length; i++) {
-            if (d[i] > answer) {
-                answer = d[i];
-                p = i;
-            }
+        for (int i = 1; i < n; i++) {
+            d[i][0] = Math.max(d[i - 1][0] + a[i], a[i]);
+            d[i][1] = Math.max(d[i - 1][0], d[i - 1][1] + a[i]);
+            answer = Math.max(answer, Math.max(d[i][0], d[i][1]));
         }
 
         System.out.println(answer);
-        System.out.println(Arrays.toString(v));
-        go(p);
-    }
 
-    static void go(int p) {
-
-        if (p == -1) {
-            return;
-        }
-
-        go(v[p]);
-        System.out.print(a[p] + " ");
     }
 
 }
