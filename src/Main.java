@@ -6,22 +6,54 @@ import java.util.*;
 class Main {
 
     static int n;
+    static int m;
+    static ArrayList<Integer>[] g;
+    static boolean[] check;
 
     public static void main(String[] args) throws IOException {
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        n = Integer.parseInt(br.readLine());
-        int[] d = new int[1000001];
-        int mod = 15746;
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        n = Integer.parseInt(st.nextToken());
+        m = Integer.parseInt(st.nextToken());
+        g = new ArrayList[n + 1];
+        check = new boolean[n + 1];
+        int answer = 0;
 
-        d[1] = 1;
-        d[2] = 2;
-        for (int i = 3; i <= 1000000; i++) {
-            d[i] = d[i - 1] + d[i - 2];
-            d[i] %= mod;
+        for (int i = 1; i <= n; i++) {
+            g[i] = new ArrayList<>();
         }
 
-        System.out.println(d[n] % mod);
+        for (int i = 0; i < m; i++) {
+            StringTokenizer st2 = new StringTokenizer(br.readLine());
+            int x = Integer.parseInt(st2.nextToken());
+            int y = Integer.parseInt(st2.nextToken());
+            g[x].add(y);
+            g[y].add(x);
+        }
+
+        for (int i = 1; i <= n; i++) {
+            if (!check[i]) {
+                dfs(i);
+                answer++;
+            }
+        }
+
+
+        System.out.println(answer);
+    }
+
+    static void dfs(int index) {
+        if (check[index]) {
+            return;
+        }
+
+        check[index] = true;
+        for (int s : g[index]) {
+            if (!check[s]) {
+                dfs(s);
+            }
+        }
 
 
     }
