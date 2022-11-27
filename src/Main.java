@@ -7,57 +7,50 @@ class Main {
 
     static int n;
     static int m;
-    static ArrayList<Integer>[] g;
+    static int[] dx = {-1, 1, 0, 0};
+    static int[] dy = {0, 0, -1, 1};
     static boolean[] check;
+    static ArrayList<Integer> answer = new ArrayList<>();
+
+    static class Node {
+        int x;
+        int y;
+
+        public Node(int x, int y) {
+            this.x = x;
+            this.y = y;
+        }
+    }
 
     public static void main(String[] args) throws IOException {
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
         n = Integer.parseInt(st.nextToken());
-        m = Integer.parseInt(st.nextToken());
-        g = new ArrayList[n + 1];
-        check = new boolean[n + 1];
-        int answer = 0;
+        int[][] map = new int[n][n];
+        int[][] check = new int[n][n];
 
-        for (int i = 1; i <= n; i++) {
-            g[i] = new ArrayList<>();
-        }
-
-        for (int i = 0; i < m; i++) {
-            StringTokenizer st2 = new StringTokenizer(br.readLine());
-            int x = Integer.parseInt(st2.nextToken());
-            int y = Integer.parseInt(st2.nextToken());
-            g[x].add(y);
-            g[y].add(x);
-        }
-
-        for (int i = 1; i <= n; i++) {
-            if (!check[i]) {
-                dfs(i);
-                answer++;
+        for (int i = 0; i < n; i++) {
+            String s = br.readLine();
+            for (int j = 0; j < s.length(); j++) {
+                map[i][j] = Character.getNumericValue(s.charAt(j));
             }
         }
 
-
-        System.out.println(answer);
-    }
-
-    static void dfs(int index) {
-        if (check[index]) {
-            return;
-        }
-
-        check[index] = true;
-        for (int s : g[index]) {
-            if (!check[s]) {
-                dfs(s);
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                if (map[i][j] == 1 && check[i][j] == 0) {
+                    bfs();
+                }
             }
         }
 
-
     }
 
+
+    static void bfs() {
+
+    }
 
 
 }
