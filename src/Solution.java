@@ -24,7 +24,7 @@ public class Solution {
                     enable_print = 1;
                     System.out.print(N % 10);
                 }
-            } else {
+            } else if (enable_print == 1) {
                 System.out.print(N % 10);
             }
             N = N / 10;
