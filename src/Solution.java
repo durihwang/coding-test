@@ -7,38 +7,25 @@ import java.util.List;
 
 public class Solution {
 
-    static int[] check;
-    List<List<Integer>> answer = new ArrayList<>();
-
-    public int permute(int[] nums, int amount) {
-
-        int result = Integer.MAX_VALUE;
-        int answer = 0;
-        ArrayList<Integer> list = new ArrayList<>();
-
-        for (int s : nums) {
-            list.add(s);
-        }
-        Collections.sort(list);
-
-        for (int coin : list) {
-            answer += amount / coin;
-            int n = amount % coin;
-            System.out.println(answer);
-            if (n == 0) {
-                result = Math.min(result, answer);
-                answer = 0;
+    public void solution(int N) {
+        int answer = 0 ;
+        /*while (N > 0) {
+            if (enable_print == 0 && N % 10 != 0) {
+                enable_print = 1;
             }
-        }
 
-        return answer;
+            else if (enable_print == 1) {
+                System.out.print(N % 10);
+            }
+            N = N / 10;
+        }*/
     }
 
     public static void main(String[] args) throws IOException {
         Solution solution = new Solution();
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-        int[] nums = {8, 5, 3, 2, 1};
-        System.out.println(solution.permute(nums, 12));
+        int[] A = {1, 2, 4, 4, 3};
+        int[] B = {2, 3, 1, 3, 1};
+//        System.out.println(solution.solution(4, A, B));
     }
 }
