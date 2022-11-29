@@ -34,6 +34,6 @@ public class Solution {
     public static void main(String[] args) throws IOException {
         Solution solution = new Solution();
 
-        solution.solution(1000010000);
+        solution.solution(100000000);
     }
 }
