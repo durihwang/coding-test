@@ -12,9 +12,6 @@ public class Solution3 {
             for (int i = 0; i < booked.length; i++) {
                 int x = Integer.parseInt(booked[i].replaceAll("[^0-9]", "")) - 1;
                 Character y = booked[i].replaceAll("[0-9]", "").charAt(0);
-//            System.out.println(x);
-//            System.out.println(stringToInt(y));
-//            System.out.println();
                 tickets[x][stringToInt(y)] = 1;
             }
         }
@@ -65,7 +62,8 @@ public class Solution3 {
     public static void main(String[] args) throws IOException {
         Solution3 solution = new Solution3();
 
-//        System.out.println(solution.solution(1, ""));
-        System.out.println(solution.solution(22, "1A 3C 2B 20G 5A"));
+        System.out.println(solution.solution(1, ""));
+//        System.out.println(solution.solution(2, "1A 2F 1C"));
+//        System.out.println(solution.solution(22, "1A 3C 2B 20G 5A"));
     }
 }
