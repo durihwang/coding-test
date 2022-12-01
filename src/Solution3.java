@@ -51,7 +51,7 @@ public class Solution3 {
     private int stringToInt(Character s) {
 
         // A부터 K까지 문자가 넘어오면 숫자로 변환 후 리턴
-        // J와 K는 숫자에 -1을 해준다. (I가 비어있기 때문
+        // J와 K는 숫자에 -1을 해준다. (I가 비어있기 때문)
         if (s <= 'H') {
             return s - 65;
         }
@@ -62,7 +62,7 @@ public class Solution3 {
     public static void main(String[] args) throws IOException {
         Solution3 solution = new Solution3();
 
-        System.out.println(solution.solution(1, ""));
+        System.out.println(solution.solution(5, "2B 2G"));
 //        System.out.println(solution.solution(2, "1A 2F 1C"));
 //        System.out.println(solution.solution(22, "1A 3C 2B 20G 5A"));
     }

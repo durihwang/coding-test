@@ -8,23 +8,13 @@ import java.util.List;
 public class Solution {
 
     public void solution(int N) {
-        int answer = 0;
-        int enable_print;
-
-        // 나머지가 0이면 0, 아니면 1로 초기화
-        if (N % 10 == 0) {
-            enable_print = 0;
-        } else {
-            enable_print = 1;
-        }
-
+        int enable_print = N % 10;
         while (N > 0) {
-            if (enable_print == 0) {
-                if (N % 10 != 0) {
-                    enable_print = 1;
-                    System.out.print(N % 10);
-                }
-            } else if (enable_print == 1) {
+            if (N % 10 != 0) {
+                enable_print = 1;
+                System.out.print(N % 10);
+            }
+            else if (enable_print == 1) {
                 System.out.print(N % 10);
             }
             N = N / 10;
@@ -34,6 +24,6 @@ public class Solution {
     public static void main(String[] args) throws IOException {
         Solution solution = new Solution();
 
-        solution.solution(100000000);
+        solution.solution(1);
     }
 }

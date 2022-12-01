@@ -20,7 +20,7 @@ public class Solution2 {
         if (N == level) {
             answer = true;
         } else {
-            for (int i = 0; i <= N; i++) {
+            for (int i = 0; i < A.length; i++) {
                 int x = A[i];
                 int y = B[i];
 
@@ -42,8 +42,8 @@ public class Solution2 {
     public static void main(String[] args) throws IOException {
         Solution2 solution = new Solution2();
 
-        int[] A = {4, 2, 2, 4, 4, 5};
-        int[] B = {5, 3, 1, 3, 1, 2};
-        System.out.println(solution.solution(5, A, B));
+        int[] A = {2,4,5,3,1};
+        int[] B = {3,5,6,4,2};
+        System.out.println(solution.solution(6, A, B));
     }
 }
