@@ -7,6 +7,7 @@ class Main {
 
     static int n;
     static int m;
+    static int dfs_count;
     static int[] dx = {-1, 1, 0, 0};
     static int[] dy = {0, 0, -1, 1};
     static int[][] map;
@@ -42,7 +43,11 @@ class Main {
             for (int j = 0; j < n; j++) {
                 // 단지가 존재하고 방문하지 않았다면 bfs 실행
                 if (map[i][j] == 1 && check[i][j] == 0) {
-                    bfs(i, j);
+                    dfs_count = 1;
+                    check[i][j] = 1;
+//                    bfs(i, j);
+                    dfs(i, j);
+                    answer.add(dfs_count);
                 }
             }
         }
@@ -55,6 +60,20 @@ class Main {
 
     }
 
+    static void dfs(int x, int y) {
+
+        for (int i = 0; i < 4; i++) {
+            int xx = x + dx[i];
+            int yy = y + dy[i];
+            if (xx >= 0 && xx < n && yy >= 0 && yy < n) {
+                if (map[xx][yy] == 1 && check[xx][yy] == 0) {
+                    dfs_count++;
+                    check[xx][yy] = 1;
+                    dfs(xx, yy);
+                }
+            }
+        }
+    }
 
     static void bfs(int x, int y) {
 
