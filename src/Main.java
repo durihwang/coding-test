@@ -5,78 +5,148 @@ import java.util.*;
 
 class Main {
 
-    static int t;
     static int n;
     static int m;
-    static int[] dx = {-1, 1, 2, 2, 1, -1, -2, -2};
-    static int[] dy = {-2, -2, -1, 1, 2, 2, 1, -1};
+    static int r;
 
     public static void main(String[] args) throws IOException {
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
-        n = Integer.parseInt(st.nextToken());
-        m = Integer.parseInt(st.nextToken());
-        int max = 200000;
-        boolean[] check = new boolean[max];
-        int[] dist = new int[max];
-        int[] from = new int[max];
+        int n = Integer.parseInt(st.nextToken());
+        int m = Integer.parseInt(st.nextToken());
+        r = Integer.parseInt(st.nextToken());
+        int[][] a = new int[n][m];
 
-        LinkedList<Integer> q = new LinkedList<>();
-        q.add(n);
-        check[n] = true;
-        dist[n] = 0;
-
-        while (!q.isEmpty()) {
-            Integer now = q.poll();
-
-            // x-1
-            if (now - 1 >= 0) {
-                if (!check[now - 1]) {
-                    check[now - 1] = true;
-                    q.add(now - 1);
-                    from[now - 1] = now;
-                    dist[now - 1] = dist[now] + 1;
-                }
-            }
-
-            // x+1
-            if (now + 1 < max) {
-                if (!check[now + 1]) {
-                    check[now + 1] = true;
-                    q.add(now + 1);
-                    from[now + 1] = now;
-                    dist[now + 1] = dist[now] + 1;
-                }
-            }
-
-            // 2*x
-            if (now * 2 < max) {
-                if (!check[now * 2]) {
-                    check[now * 2] = true;
-                    q.add(now * 2);
-                    from[now * 2] = now;
-                    dist[now * 2] = dist[now] + 1;
-                }
+        for (int i = 0; i < n; i++) {
+            StringTokenizer st2 = new StringTokenizer(br.readLine());
+            for (int j = 0; j < m; j++) {
+                a[i][j] = Integer.parseInt(st2.nextToken());
             }
         }
 
-        System.out.println(dist[m]);
-
-        ArrayList<Integer> list = new ArrayList<>();
-        for (int i = m; i != n; i = from[i]) {
-            list.add(i);
+        int[] cal = new int[r];
+        StringTokenizer st3 = new StringTokenizer(br.readLine());
+        for (int i = 0; i < r; i++) {
+            cal[i] = Integer.parseInt(st3.nextToken());
         }
 
-        list.add(n);
-
-        for (int i = list.size(); i > 0; i--) {
-            System.out.print(list.get(i-1) + " ");
+        for (int s : cal) {
+            switch (s) {
+                case 1:
+                    a = first(a);
+                    break;
+                case 2:
+                    a = second(a);
+                    break;
+                case 3:
+                    a = third(a);
+                    break;
+                case 4:
+                    a = fourth(a);
+                    break;
+                case 5:
+                    a = fifth(a);
+                    break;
+                case 6:
+                    a = sixth(a);
+                    break;
+            }
         }
 
-
+        for (int[] s : a) {
+            for (int w : s) {
+                System.out.print(w + " ");
+            }
+            System.out.println();
+        }
     }
 
+    public static int[][] first(int[][] a) {
+        int n = a.length;
+        int m = a[0].length;
+        int[][] ans = new int[n][m];
 
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                ans[i][j] = a[n - i - 1][j];
+            }
+        }
+
+        return ans;
+    }
+
+    public static int[][] second(int[][] a) {
+        int n = a.length;
+        int m = a[0].length;
+        int[][] ans = new int[n][m];
+
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                ans[i][j] = a[i][m - j - 1];
+            }
+        }
+
+        return ans;
+    }
+
+    public static int[][] third(int[][] a) {
+        int n = a.length;
+        int m = a[0].length;
+        int[][] ans = new int[m][n];
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                ans[i][j] = a[n - j - 1][i];
+            }
+        }
+
+        return ans;
+    }
+
+    public static int[][] fourth(int[][] a) {
+        int n = a.length;
+        int m = a[0].length;
+        int[][] ans = new int[m][n];
+
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                ans[i][j] = a[j][m - i - 1];
+            }
+        }
+
+        return ans;
+    }
+
+    public static int[][] fifth(int[][] a) {
+
+        int n = a.length;
+        int m = a[0].length;
+        int[][] ans = new int[n][m];
+        for (int i = 0; i < n / 2; i++) {
+            for (int j = 0; j < m / 2; j++) {
+                ans[i][j] = a[i + n / 2][j];
+                ans[i][j + m / 2] = a[i][j];
+                ans[i + n / 2][j + m / 2] = a[i][j + m / 2];
+                ans[i + n / 2][j] = a[i + n / 2][j + m / 2];
+            }
+        }
+        return ans;
+    }
+
+    public static int[][] sixth(int[][] a) {
+
+        int n = a.length;
+        int m = a[0].length;
+        int[][] ans = new int[n][m];
+        for (int i = 0; i < n / 2; i++) {
+            for (int j = 0; j < m / 2; j++) {
+                ans[i + n / 2][j] = a[i][j];
+                ans[i + n / 2][j + m / 2] = a[i + n / 2][j];
+                ans[i][j + m / 2] = a[i + n / 2][j + m / 2];
+                ans[i][j] = a[i][j + m / 2];
+            }
+        }
+        return ans;
+    }
 
 }
