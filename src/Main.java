@@ -7,146 +7,75 @@ class Main {
 
     static int n;
     static int m;
-    static int r;
+    static int[] dx = {-1, 0, 1, 0};
+    static int[] dy = {0, 1, 0, -1};
 
     public static void main(String[] args) throws IOException {
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
-        int n = Integer.parseInt(st.nextToken());
-        int m = Integer.parseInt(st.nextToken());
-        r = Integer.parseInt(st.nextToken());
+        n = Integer.parseInt(st.nextToken());
+        m = Integer.parseInt(st.nextToken());
         int[][] a = new int[n][m];
 
-        for (int i = 0; i < n; i++) {
-            StringTokenizer st2 = new StringTokenizer(br.readLine());
-            for (int j = 0; j < m; j++) {
-                a[i][j] = Integer.parseInt(st2.nextToken());
-            }
-        }
-
-        int[] cal = new int[r];
-        StringTokenizer st3 = new StringTokenizer(br.readLine());
-        for (int i = 0; i < r; i++) {
-            cal[i] = Integer.parseInt(st3.nextToken());
-        }
-
-        for (int s : cal) {
-            switch (s) {
-                case 1:
-                    a = first(a);
-                    break;
-                case 2:
-                    a = second(a);
-                    break;
-                case 3:
-                    a = third(a);
-                    break;
-                case 4:
-                    a = fourth(a);
-                    break;
-                case 5:
-                    a = fifth(a);
-                    break;
-                case 6:
-                    a = sixth(a);
-                    break;
-            }
-        }
-
-        for (int[] s : a) {
-            for (int w : s) {
-                System.out.print(w + " ");
-            }
-            System.out.println();
-        }
-    }
-
-    public static int[][] first(int[][] a) {
-        int n = a.length;
-        int m = a[0].length;
-        int[][] ans = new int[n][m];
+        StringTokenizer st2 = new StringTokenizer(br.readLine());
+        int x = Integer.parseInt(st2.nextToken());
+        int y = Integer.parseInt(st2.nextToken());
+        int dir = Integer.parseInt(st2.nextToken());
 
         for (int i = 0; i < n; i++) {
+            StringTokenizer st3 = new StringTokenizer(br.readLine());
             for (int j = 0; j < m; j++) {
-                ans[i][j] = a[n - i - 1][j];
+                a[i][j] = Integer.parseInt(st3.nextToken());
             }
         }
 
-        return ans;
-    }
+        while (true) {
 
-    public static int[][] second(int[][] a) {
-        int n = a.length;
-        int m = a[0].length;
-        int[][] ans = new int[n][m];
+            // 청소하지 않았다면(0), 청소했다는 표시로 2를 넣어준다. (1은 벽)
+            if (a[x][y] == 0) {
+                a[x][y] = 2;
+            }
 
+            // 4방향 모두 0이 아니면(청소를 했거나 벽이면) 청소기를 멈추거나 후진을 시켜준다.
+            if (a[x - 1][y] != 0 && a[x][y - 1] != 0 && a[x + 1][y] != 0 && a[x][y + 1] != 0) {
+
+                // 현재 바라보는 방향의 반대방향이 벽이면 작동을 멈춘다.
+                if (a[x - dx[dir]][y - dy[dir]] == 1) {
+                    break;
+                } else {
+                    // 현재 바라보는 방향 반대 방향이 벽이 아니면 해당 방향으로 이동한다. (후진)
+                    x -= dx[dir];
+                    y -= dy[dir];
+                }
+            } else {
+
+                // 현재 방향에서 왼쪽 방향으로 회전하기 위해 dir값 조정
+                dir = (dir + 3) % 4;
+
+                // 현재 방향에서 왼쪽 방향 위치에 청소가 안되어있으면 그 방향으로 회전
+                if (a[x + dx[dir]][y + dy[dir]] == 0) {
+                    x += dx[dir];
+                    y += dy[dir];
+                }
+            }
+        }
+
+        int answer = 0;
+
+        // 청소를 한 곳(2)을 카운트 해준다.
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < m; j++) {
-                ans[i][j] = a[i][m - j - 1];
+                if (a[i][j] == 2) {
+                    answer++;
+                }
             }
         }
 
-        return ans;
+        System.out.println(answer);
+
+
     }
 
-    public static int[][] third(int[][] a) {
-        int n = a.length;
-        int m = a[0].length;
-        int[][] ans = new int[m][n];
-        for (int i = 0; i < m; i++) {
-            for (int j = 0; j < n; j++) {
-                ans[i][j] = a[n - j - 1][i];
-            }
-        }
-
-        return ans;
-    }
-
-    public static int[][] fourth(int[][] a) {
-        int n = a.length;
-        int m = a[0].length;
-        int[][] ans = new int[m][n];
-
-        for (int i = 0; i < m; i++) {
-            for (int j = 0; j < n; j++) {
-                ans[i][j] = a[j][m - i - 1];
-            }
-        }
-
-        return ans;
-    }
-
-    public static int[][] fifth(int[][] a) {
-
-        int n = a.length;
-        int m = a[0].length;
-        int[][] ans = new int[n][m];
-        for (int i = 0; i < n / 2; i++) {
-            for (int j = 0; j < m / 2; j++) {
-                ans[i][j] = a[i + n / 2][j];
-                ans[i][j + m / 2] = a[i][j];
-                ans[i + n / 2][j + m / 2] = a[i][j + m / 2];
-                ans[i + n / 2][j] = a[i + n / 2][j + m / 2];
-            }
-        }
-        return ans;
-    }
-
-    public static int[][] sixth(int[][] a) {
-
-        int n = a.length;
-        int m = a[0].length;
-        int[][] ans = new int[n][m];
-        for (int i = 0; i < n / 2; i++) {
-            for (int j = 0; j < m / 2; j++) {
-                ans[i + n / 2][j] = a[i][j];
-                ans[i + n / 2][j + m / 2] = a[i + n / 2][j];
-                ans[i][j + m / 2] = a[i + n / 2][j + m / 2];
-                ans[i][j] = a[i][j + m / 2];
-            }
-        }
-        return ans;
-    }
 
 }
