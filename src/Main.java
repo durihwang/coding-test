@@ -7,6 +7,7 @@ class Main {
 
     static int n;
     static int m;
+    static int l;
     static int[] dx = {-1, 0, 1, 0};
     static int[] dy = {0, 1, 0, -1};
 
@@ -15,66 +16,109 @@ class Main {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
         n = Integer.parseInt(st.nextToken());
-        m = Integer.parseInt(st.nextToken());
-        int[][] a = new int[n][m];
-
-        StringTokenizer st2 = new StringTokenizer(br.readLine());
-        int x = Integer.parseInt(st2.nextToken());
-        int y = Integer.parseInt(st2.nextToken());
-        int dir = Integer.parseInt(st2.nextToken());
-
-        for (int i = 0; i < n; i++) {
-            StringTokenizer st3 = new StringTokenizer(br.readLine());
-            for (int j = 0; j < m; j++) {
-                a[i][j] = Integer.parseInt(st3.nextToken());
-            }
-        }
-
-        while (true) {
-
-            // 청소하지 않았다면(0), 청소했다는 표시로 2를 넣어준다. (1은 벽)
-            if (a[x][y] == 0) {
-                a[x][y] = 2;
-            }
-
-            // 4방향 모두 0이 아니면(청소를 했거나 벽이면) 청소기를 멈추거나 후진을 시켜준다.
-            if (a[x - 1][y] != 0 && a[x][y - 1] != 0 && a[x + 1][y] != 0 && a[x][y + 1] != 0) {
-
-                // 현재 바라보는 방향의 반대방향이 벽이면 작동을 멈춘다.
-                if (a[x - dx[dir]][y - dy[dir]] == 1) {
-                    break;
-                } else {
-                    // 현재 바라보는 방향 반대 방향이 벽이 아니면 해당 방향으로 이동한다. (후진)
-                    x -= dx[dir];
-                    y -= dy[dir];
-                }
-            } else {
-
-                // 현재 방향에서 왼쪽 방향으로 회전하기 위해 dir값 조정
-                dir = (dir + 3) % 4;
-
-                // 현재 방향에서 왼쪽 방향 위치에 청소가 안되어있으면 그 방향으로 회전
-                if (a[x + dx[dir]][y + dy[dir]] == 0) {
-                    x += dx[dir];
-                    y += dy[dir];
-                }
-            }
-        }
-
+        l = Integer.parseInt(st.nextToken());
         int answer = 0;
+        int[][] a = new int[n][n];
 
-        // 청소를 한 곳(2)을 카운트 해준다.
         for (int i = 0; i < n; i++) {
-            for (int j = 0; j < m; j++) {
-                if (a[i][j] == 2) {
-                    answer++;
-                }
+            StringTokenizer st2 = new StringTokenizer(br.readLine());
+            for (int j = 0; j < n; j++) {
+                a[i][j] = Integer.parseInt(st2.nextToken());
+            }
+        }
+
+        // 행 검사
+        for (int i = 0; i < n; i++) {
+            int[] d = new int[n];
+            for (int j = 0; j < n; j++) {
+                d[j] = a[i][j];
+            }
+            if (check(d, l)) {
+                answer += 1;
+            }
+        }
+
+        // 열 검사
+        for (int j = 0; j < n; j++) {
+            int[] d = new int[n];
+            for (int i = 0; i < n; i++) {
+                d[i] = a[i][j];
+            }
+            if (check(d, l)) {
+                answer += 1;
             }
         }
 
         System.out.println(answer);
 
+    }
 
+    private static boolean check(int[] a, int l) {
+
+        boolean[] c = new boolean[n];
+
+        for (int i = 1; i < n; i++) {
+
+            // 인접한 칸의 높이가 다르면 경사로 설치
+            if (a[i - 1] != a[i]) {
+
+                // 경사로의 칸이 1칸 차이인지 확인
+                int diff = Math.abs(a[i - 1] - a[i]);
+                if (diff != 1) {
+                    return false;
+                }
+
+                // 왼쪽 칸이 작은 경우
+                if (a[i - 1] < a[i]) {
+
+                    // 1번부터 l만큼 경사로를 설치할 수 있는지 확인
+                    for (int j = 1; j <= l; j++) {
+
+                        // 범위를 벗어나는지 확인
+                        if (i - j < 0) {
+                            return false;
+                        }
+
+                        // 길이가 모두 같은지 확인
+                        if (a[i - 1] != a[i - j]) {
+                            return false;
+                        }
+
+                        // 경사로를 이미 설치했는지 확인
+                        if (c[i - j]) {
+                            return false;
+                        }
+
+                        // 위에서 전부 안걸리면 경사로 설치
+                        c[i - j] = true;
+                    }
+
+                } else {    // 오른쪽 칸이 작은 경우
+
+                    for (int j = 0; j < l; j++) {
+
+                        // 범위 벗어나는지 확인
+                        if (i + j >= n) {
+                            return false;
+                        }
+
+                        // 길이가 모두 같은지 확인
+                        if (a[i] != a[i + j]) {
+                            return false;
+                        }
+
+                        // 경사로를 이미 설치했는지 확인
+                        if (c[i + j]) {
+                            return false;
+                        }
+
+                        // 위에서 젅부 안걸리면 경사로 설치
+                        c[i + j] = true;
+                    }
+                }
+            }
+        }
+        return true;
     }
 
 
