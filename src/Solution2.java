@@ -1,17 +1,21 @@
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class Solution2 {
 
     static boolean[] check;
     static boolean answer;
 
-    public boolean solution(int N, int[] A, int[] B) {
-
-        answer = false;
-        check = new boolean[N + 1];
-        dfs(1, N, A, B);
-
-        return answer;
+    public boolean solution(int[] A, int K) {
+        int n = A.length;
+        for (int i = 0; i < n - 1; i++) {
+            if (A[i] + 1 < A[i + 1])
+                return false;
+        }
+        if (A[0] != 1 || A[n - 1] != K)
+            return false;
+        else
+            return true;
     }
 
     public void dfs(int level, int N, int[] A, int[] B) {
@@ -37,13 +41,13 @@ public class Solution2 {
                 }
             }
         }
+        System.out.println();
     }
 
     public static void main(String[] args) throws IOException {
         Solution2 solution = new Solution2();
 
-        int[] A = {2,4,5,3,1};
-        int[] B = {3,5,6,4,2};
-        System.out.println(solution.solution(6, A, B));
+        int[] A = {1,2,2,4};
+        System.out.println(solution.solution(A, 4));
     }
 }

@@ -1,11 +1,12 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.StringTokenizer;
 
-class Main {
-
-    static ArrayList<Integer> dfs[];
+public class Main_24480 {
+    static ArrayList<ArrayList<Integer>> dfs = new ArrayList<>();
     static boolean[] visit;
     static int[] seq;
     static int M, N, sequence;
@@ -19,9 +20,8 @@ class Main {
 
         visit = new boolean[N+1];
         seq = new int[N];
-        dfs = new ArrayList[N+1];
         for (int i = 0; i < N+1; i++) {
-            dfs[i] = new ArrayList<>();
+            dfs.add(new ArrayList<>());
         }
 
         for (int i = 0; i < M; i++) {
@@ -29,28 +29,25 @@ class Main {
             int u = Integer.parseInt(st2.nextToken());
             int v = Integer.parseInt(st2.nextToken());
 
-            dfs[u].add(v);
-            dfs[v].add(u);
+            dfs.get(u).add(v);
+            dfs.get(v).add(u);
         }
         for (ArrayList<Integer> d : dfs) {
-            d.sort(Collections.reverseOrder());
+            Collections.sort(d, Collections.reverseOrder());
         }
 
         dfs(R);
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < seq.length; i++) {
-            System.out.println(seq[i]);
+        for (int i : seq) {
+            System.out.println(i);
         }
     }
     public static void dfs(int start) {
-        seq[start] = sequence++;
-        for (Integer integer : dfs[start]) {
-            if (!visit[integer]) {
-                visit[integer] = true;
+        if (!visit[start]) {
+            seq[sequence++] = start;
+            visit[start] = true;
+            for (Integer integer : dfs.get(start)) {
                 dfs(integer);
             }
         }
     }
-
-
 }
