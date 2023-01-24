@@ -5,52 +5,50 @@ import java.util.*;
 
 class Main {
 
-    static ArrayList<Integer> dfs[];
-    static boolean[] visit;
-    static int[] seq;
-    static int M, N, sequence;
+    static List<Integer> linkedList[];
+    static int[] parentNodes;
+    static boolean[] visited;
+    static int n, m;
+
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st = new StringTokenizer(br.readLine(), " ");
-
-        N = Integer.parseInt(st.nextToken());       // 정점의 수
-        M = Integer.parseInt(st.nextToken());       // 간선의 수
-        int R = Integer.parseInt(st.nextToken());   // 시작 정점
-
-        visit = new boolean[N+1];
-        seq = new int[N];
-        dfs = new ArrayList[N+1];
-        for (int i = 0; i < N+1; i++) {
-            dfs[i] = new ArrayList<>();
+        n = Integer.parseInt(br.readLine());
+        linkedList = new ArrayList[n + 1];
+        for (int i = 0; i < n + 1; i++) {
+            linkedList[i] = new ArrayList<>();
         }
 
-        for (int i = 0; i < M; i++) {
-            StringTokenizer st2 = new StringTokenizer(br.readLine(), " ");
-            int u = Integer.parseInt(st2.nextToken());
-            int v = Integer.parseInt(st2.nextToken());
+        // 부모 노드 저장
+        parentNodes = new int[n + 1];
+        // 방문 여부 확인
+        visited = new boolean[n + 1];
 
-            dfs[u].add(v);
-            dfs[v].add(u);
-        }
-        for (ArrayList<Integer> d : dfs) {
-            d.sort(Collections.reverseOrder());
+        for (int i = 0; i < n - 1; i++) {
+            StringTokenizer st = new StringTokenizer(br.readLine());
+            int l = Integer.parseInt(st.nextToken());
+            int m = Integer.parseInt(st.nextToken());
+            linkedList[l].add(m);
+            linkedList[m].add(l);
         }
 
-        dfs(R);
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < seq.length; i++) {
-            System.out.println(seq[i]);
+        dfs(1);
+        for (int i = 2; i < n + 1; i++) {
+            System.out.println(parentNodes[i]);
         }
     }
-    public static void dfs(int start) {
-        seq[start] = sequence++;
-        for (Integer integer : dfs[start]) {
-            if (!visit[integer]) {
-                visit[integer] = true;
-                dfs(integer);
+
+    public static void dfs(int node) {
+        int v = node;
+        visited[v] = true;
+        for (int child : linkedList[v]) {
+            if (!visited[child]) {
+                visited[child] = true;
+                parentNodes[child] = v;
+                dfs(child);
             }
         }
     }
+
 
 
 }
